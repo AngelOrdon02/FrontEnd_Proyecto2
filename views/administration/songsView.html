@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+    <title>Principal - Administrador</title>
+
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
+
+    <link rel="stylesheet" href="../../css/home.css">
+
+    <script type="text/javascript" src="../../scripts/script.js"></script>
+    <!-- Controlador -->
+    <!-- <script type="text/javascript" src="../../scripts/administration/songsController.js"></script> -->
+
+</head>
+
+<body>
+
+    <!-- Following Menu -->
+    <div class="ui large top fixed hidden menu">
+        <div class="ui container">
+            <a class="active item">Home</a>
+            <a class="item">Work</a>
+            <a class="item">Company</a>
+            <a class="item">Careers</a>
+            <div class="right menu">
+                <div class="item">
+                    <a class="ui button">Log in</a>
+                </div>
+                <div class="item">
+                    <a class="ui primary button">Sign Up</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Sidebar Menu -->
+    <div class="ui vertical inverted sidebar menu">
+        <a class="active item">Home</a>
+        <a class="item">Work</a>
+        <a class="item">Company</a>
+        <a class="item">Careers</a>
+        <a class="item">Login</a>
+        <a class="item">Signup</a>
+    </div>
+
+
+    <!-- Page Contents -->
+    <div class="pusher">
+        <!-- <div class="ui inverted vertical masthead center aligned segment"> -->
+        <div class="ui inverted vertical center aligned segment">
+
+            <div class="ui container">
+                <div class="ui large secondary inverted pointing menu">
+                    <a class="toc item">
+                        <i class="sidebar icon"></i>
+                    </a>
+                    <a class="active item">Home</a>
+                    <a class="item">Work</a>
+                    <a class="item">Company</a>
+                    <a class="item">Careers</a>
+                    <div class="right item">
+                        <!-- <a class="ui inverted button">Log in</a> -->
+                        <a class="ui inverted button">Sign Up</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="ui text container">
+                <h1 class="ui inverted header">
+                    Estatus de canciones
+                </h1>
+                <!-- <h2>Do whatever you want when you want to.</h2> -->
+            </div>
+
+        </div>
+
+        <div class="ui vertical stripe">
+            <div class="ui middle aligned stackable grid container">
+                <div class="row">
+                    <div class="one wide column"></div>
+                    <div class="fourteen wide column">
+                        <h3>Canciones</h3>
+                        <table class="ui fixed black celled table">
+                            <!-- <table class="ui teal table"> -->
+                            <thead>
+                                <tr>
+                                    <th>Imagen</th>
+                                    <th>Nombre</th>
+                                    <th>Artista</th>
+                                    <th>Album</th>
+                                    <th>Fecha</th>
+                                    <th>Spotify</th>
+                                    <th>Youtube</th>
+                                    <!-- <th style="text-align: right;">Opciones</th> -->
+                                </tr>
+                            </thead>
+                            <tbody id="CuerpoTabla">
+                                <!-- <tr>
+                                    <td>Apples</td>
+                                    <td>200</td>
+                                    <td>0g</td>
+                                </tr>
+                                <tr>
+                                    <td>Orange</td>
+                                    <td>310</td>
+                                    <td>0g</td>
+                                </tr> -->
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="one wide column"></div>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="ui inverted vertical footer segment">
+            <div class="ui container">
+                <div class="ui stackable inverted divided equal height stackable grid">
+                    <div class="three wide column">
+                        <h4 class="ui inverted header">About</h4>
+                        <div class="ui inverted link list">
+                            <a href="#" class="item">Sitemap</a>
+                            <a href="#" class="item">Contact Us</a>
+                            <a href="#" class="item">Religious Ceremonies</a>
+                            <a href="#" class="item">Gazebo Plans</a>
+                        </div>
+                    </div>
+                    <div class="three wide column">
+                        <h4 class="ui inverted header">Services</h4>
+                        <div class="ui inverted link list">
+                            <a href="#" class="item">Banana Pre-Order</a>
+                            <a href="#" class="item">DNA FAQ</a>
+                            <a href="#" class="item">How To Access</a>
+                            <a href="#" class="item">Favorite X-Men</a>
+                        </div>
+                    </div>
+                    <div class="seven wide column">
+                        <h4 class="ui inverted header">Footer Header</h4>
+                        <p>Extra space for a call to action inside the footer that could help re-engage users.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</body>
+
+<script>
+    function init() {
+        var contenido = document.querySelector('#CuerpoTabla')
+        contenido.innerHTML = ""
+        fetch('http://localhost:3000/songs')
+            .then(response => response.json())
+            .catch(error => {
+                console.log(error)
+            })
+            .then(res => {
+                //Recorriendo nuestro res e incrementando el innerHTML de nuestro elemento
+                //Identificado como contenido
+                console.log(res)
+                for (var i in res) {
+                    for (var j in res[i]) {
+                        // console.log(res[i][j])
+                        // console.log(res[i])
+                        contenido.innerHTML +=
+                            `<tr>
+                        <th>
+                            <img style="width: 100px; height: 100px;" src="${res[i][j].image}">
+                        </th>
+                        <th>${res[i][j].name}</th>
+                        <th>${res[i][j].artist}</th>
+                        <th>${res[i][j].album}</th>
+                        <th>${res[i][j].date}</th>
+                        <th>${res[i][j].link_spotify}</th>
+                        <th>${res[i][j].link_youtube}</th>
+                        </tr>`
+                    }
+                }
+            })
+    }
+
+    function viewComments(id) {
+
+    }
+
+    init();
+</script>
+
+</html>
