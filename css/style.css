@@ -2,3 +2,13 @@
 @import url(login.css);
 @import url(home.css);
 */
+
+.centered {
+    text-align: center;
+    padding: 10px;
+}
+
+.img_table {
+    width: 120px;
+    height: 120px;
+}

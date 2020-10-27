@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
     <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
 
+    <link rel="stylesheet" href="../../css/style.css">
     <link rel="stylesheet" href="../../css/home.css">
 
     <script type="text/javascript" src="../../scripts/script.js"></script>
@@ -90,14 +91,14 @@
                             <!-- <table class="ui teal table"> -->
                             <thead>
                                 <tr>
-                                    <th>Imagen</th>
-                                    <th>Nombre</th>
-                                    <th>Artista</th>
-                                    <th>Album</th>
-                                    <th>Fecha</th>
-                                    <th>Spotify</th>
-                                    <th>Youtube</th>
-                                    <!-- <th style="text-align: right;">Opciones</th> -->
+                                    <th class="centered">Imagen</th>
+                                    <th class="centered">Nombre</th>
+                                    <th class="centered">Artista</th>
+                                    <th class="centered">Album</th>
+                                    <th class="centered">Fecha</th>
+                                    <!-- <th class="centered">Spotify</th>
+                                    <th class="centered">Youtube</th> -->
+                                    <th class="centered">Opciones</th>
                                 </tr>
                             </thead>
                             <tbody id="CuerpoTabla">
@@ -173,14 +174,21 @@
                         contenido.innerHTML +=
                             `<tr>
                         <th>
-                            <img style="width: 100px; height: 100px;" src="${res[i][j].image}">
+                            <img class="img_table" src="${res[i][j].image}">
                         </th>
-                        <th>${res[i][j].name}</th>
-                        <th>${res[i][j].artist}</th>
-                        <th>${res[i][j].album}</th>
-                        <th>${res[i][j].date}</th>
-                        <th>${res[i][j].link_spotify}</th>
-                        <th>${res[i][j].link_youtube}</th>
+                        <th class="centered">${res[i][j].name}</th>
+                        <th class="centered">${res[i][j].artist}</th>
+                        <th class="centered">${res[i][j].album}</th>
+                        <th class="centered">${res[i][j].date}</th>
+                        <!-- <th class="centered">${res[i][j].link_spotify}</th>
+                        <th class="centered">${res[i][j].link_youtube}</th> -->
+                        <th class="centered">
+                            <div class="ui small icon buttons">
+                                <button class="ui blue button"><i class="eye icon"></i></button>
+                                <button class="ui grey button"><i class="edit icon"></i></button>
+                                <button class="ui red button"><i class="trash alternate icon"></i></button>
+                            </div>
+                        </th>
                         </tr>`
                     }
                 }
