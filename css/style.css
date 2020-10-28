@@ -8,6 +8,11 @@
     padding: 10px;
 }
 
+.position_right {
+    text-align: right;
+    padding: 10px;
+}
+
 .img_table {
     width: 120px;
     height: 120px;

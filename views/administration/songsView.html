@@ -94,7 +94,7 @@
                                     <th class="centered">Imagen</th>
                                     <th class="centered">Nombre</th>
                                     <th class="centered">Artista</th>
-                                    <th class="centered">Album</th>
+                                    <th class="centered">Álbum</th>
                                     <th class="centered">Fecha</th>
                                     <!-- <th class="centered">Spotify</th>
                                     <th class="centered">Youtube</th> -->
@@ -184,9 +184,9 @@
                         <th class="centered">${res[i][j].link_youtube}</th> -->
                         <th class="centered">
                             <div class="ui small icon buttons">
-                                <button class="ui blue button"><i class="eye icon"></i></button>
-                                <button class="ui grey button"><i class="edit icon"></i></button>
-                                <button class="ui red button"><i class="trash alternate icon"></i></button>
+                                <button class="ui blue button" onclick="comments_song(${res[i][j].id})"><i class="eye icon"></i></button>
+                                <button class="ui teal button" onclick="edit_song(${res[i][j].id})"><i class="edit icon"></i></button>
+                                <button class="ui red button" onclick="delet_song(${res[i][j].id})"><i class="trash alternate icon"></i></button>
                             </div>
                         </th>
                         </tr>`
@@ -195,8 +195,30 @@
             })
     }
 
-    function viewComments(id) {
+    function comments_song(id) {
+        console.log("comentarios: " + id);
 
+
+    }
+
+    function edit_song(id) {
+        console.log("edita: " + id);
+
+        var id_song = id
+        sessionStorage.setItem("id_song_edit", id_song)
+        location.href = "./songEditView.html"
+    }
+
+    function delet_song(id) {
+        console.log("eliminar: " + id);
+
+        fetch(`http://localhost:3000/songs/${id}`, {
+                method: 'DELETE'
+            }).then(res => res.json())
+            .catch(error => console.error('Error:', error))
+            .then(response => console.log('Success:', response));
+
+        init();
     }
 
     init();

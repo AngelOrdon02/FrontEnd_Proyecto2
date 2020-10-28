@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+    <title>Principal - Administrador</title>
+
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
+
+    <link rel="stylesheet" href="../../css/style.css">
+    <link rel="stylesheet" href="../../css/home.css">
+
+    <script type="text/javascript" src="../../scripts/script.js"></script>
+    <!-- Controlador -->
+    <!-- <script type="text/javascript" src="../../scripts/administration/songsController.js"></script> -->
+
+</head>
+
+<body>
+
+    <!-- Following Menu -->
+    <div class="ui large top fixed hidden menu">
+        <div class="ui container">
+            <a class="active item">Home</a>
+            <a class="item">Work</a>
+            <a class="item">Company</a>
+            <a class="item">Careers</a>
+            <div class="right menu">
+                <div class="item">
+                    <a class="ui button">Log in</a>
+                </div>
+                <div class="item">
+                    <a class="ui primary button">Sign Up</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Sidebar Menu -->
+    <div class="ui vertical inverted sidebar menu">
+        <a class="active item">Home</a>
+        <a class="item">Work</a>
+        <a class="item">Company</a>
+        <a class="item">Careers</a>
+        <a class="item">Login</a>
+        <a class="item">Signup</a>
+    </div>
+
+
+    <!-- Page Contents -->
+    <div class="pusher">
+        <!-- <div class="ui inverted vertical masthead center aligned segment"> -->
+        <div class="ui inverted vertical center aligned segment">
+
+            <div class="ui container">
+                <div class="ui large secondary inverted pointing menu">
+                    <a class="toc item">
+                        <i class="sidebar icon"></i>
+                    </a>
+                    <a class="active item">Home</a>
+                    <a class="item">Work</a>
+                    <a class="item">Company</a>
+                    <a class="item">Careers</a>
+                    <div class="right item">
+                        <!-- <a class="ui inverted button">Log in</a> -->
+                        <a class="ui inverted button">Sign Up</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="ui text container">
+                <h1 class="ui inverted header">
+                    Editando canción
+                </h1>
+                <!-- <h2>Do whatever you want when you want to.</h2> -->
+            </div>
+
+        </div>
+
+        <div class="ui vertical stripe">
+            <div class="ui middle aligned stackable grid container">
+                <div class="row">
+                    <div class="four wide column"></div>
+                    <div class="eight wide column">
+                        <h3>Datos de la canción:</h3>
+                        <form class="ui form">
+                            <div class="field">
+                                <label>Id</label>
+                                <input type="text" id="id_song" name="id_song" placeholder="Id" disabled>
+                            </div>
+                            <div class="field">
+                                <label>Nombre</label>
+                                <input type="text" id="name" name="name" placeholder="Nombre">
+                            </div>
+                            <div class="field">
+                                <label>Artista</label>
+                                <input type="text" id="artist" name="last-name" placeholder="Artista">
+                            </div>
+                            <div class="field">
+                                <label>Álbum</label>
+                                <input type="text" id="album" name="last-name" placeholder="Álbum">
+                            </div>
+                            <div class="field">
+                                <label>Fecha</label>
+                                <input type="text" id="date" name="last-name" placeholder="Fecha">
+                            </div>
+                            <div class="field">
+                                <label>Imagen</label>
+                                <textarea rows="2" id="image" placeholder="Link de imagen"></textarea>
+                            </div>
+                            <div class="field">
+                                <label>Link spotify</label>
+                                <textarea rows="2" id="link_spotify" placeholder="Link de spotify"></textarea>
+                            </div>
+                            <div class="field">
+                                <label>Link youtube</label>
+                                <textarea rows="2" id="link_youtube" placeholder="Link de youtube"></textarea>
+                            </div>
+                            <div class="field">
+                                <label>Estado</label>
+                                <input type="text" id="state" name="state" placeholder="Estado" disabled>
+                            </div>
+                            <div class="position_right">
+                                <button class="large ui teal button" type="button" onclick="edit()">Editar</button>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="four wide column"></div>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="ui inverted vertical footer segment">
+            <div class="ui container">
+                <div class="ui stackable inverted divided equal height stackable grid">
+                    <div class="three wide column">
+                        <h4 class="ui inverted header">About</h4>
+                        <div class="ui inverted link list">
+                            <a href="#" class="item">Sitemap</a>
+                            <a href="#" class="item">Contact Us</a>
+                            <a href="#" class="item">Religious Ceremonies</a>
+                            <a href="#" class="item">Gazebo Plans</a>
+                        </div>
+                    </div>
+                    <div class="three wide column">
+                        <h4 class="ui inverted header">Services</h4>
+                        <div class="ui inverted link list">
+                            <a href="#" class="item">Banana Pre-Order</a>
+                            <a href="#" class="item">DNA FAQ</a>
+                            <a href="#" class="item">How To Access</a>
+                            <a href="#" class="item">Favorite X-Men</a>
+                        </div>
+                    </div>
+                    <div class="seven wide column">
+                        <h4 class="ui inverted header">Footer Header</h4>
+                        <p>Extra space for a call to action inside the footer that could help re-engage users.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</body>
+
+<script>
+    function init() {
+
+        var id_song = sessionStorage.id_song_edit
+        console.log(id_song)
+
+        fetch(`http://localhost:3000/songs/${id_song}`, {
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
+            .then(response => response.json())
+            .catch(error => {
+                console.log(error)
+            })
+            .then(res => {
+                console.log(res)
+                for (var i in res) {
+                    document.querySelector('#name').value = res[i].name
+                    document.querySelector('#artist').value = res[i].artist
+                    document.querySelector('#album').value = res[i].album
+                    document.querySelector('#date').value = res[i].date
+                    document.querySelector('#image').value = res[i].image
+                    document.querySelector('#link_spotify').value = res[i].link_spotify
+                    document.querySelector('#link_youtube').value = res[i].link_youtube
+
+                    document.querySelector('#id_song').value = res[i].id
+                    document.querySelector('#state').value = res[i].state
+                }
+
+                // document.querySelector('#name').value = res.name
+                // document.querySelector('#artist').value = res.artist
+                // document.querySelector('#album').value = res.album
+                // document.querySelector('#date').value = res.date
+                // document.querySelector('#image').value = res.image
+                // document.querySelector('#link_spotify').value = res.link_spotify
+                // document.querySelector('#link_youtube').value = res.link_youtube
+
+                // document.querySelector('#id_song').value = res.id
+                // document.querySelector('#state').value = res.state
+            })
+
+    }
+
+    function edit() {
+        // var id_song = sessionStorage.id_song_edit;
+        // console.log(id_song);
+
+        var name = document.querySelector('#name').value
+        var artist = document.querySelector('#artist').value
+        var album = document.querySelector('#album').value
+        var date = document.querySelector('#date').value
+        var image = document.querySelector('#image').value
+        var link_spotify = document.querySelector('#link_spotify').value
+        var link_youtube = document.querySelector('#link_youtube').value
+
+        var id_song = document.querySelector('#id_song').value
+        var state = document.querySelector('#state').value
+
+        var data = {
+            'id': parseInt(id_song, 10),
+            'name': name,
+            'artist': artist,
+            'album': album,
+            'date': date,
+            'image': image,
+            'link_spotify': link_spotify,
+            'link_youtube': link_youtube,
+            'state': parseInt(state, 10)
+        }
+
+        console.log(data);
+        fetch(`http://localhost:3000/songs/${id_song}`, {
+                method: 'PUT',
+                body: JSON.stringify(data),
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+
+            }).then(res => res.json())
+            .catch(error => {
+                console.error('Error:', error)
+                alert("Ocurrio un error al consumir la API, revise la consola")
+            })
+            .then(response => {
+                console.log('Success:', response);
+                alert(response.message)
+                location.href = "./songsView.html"
+            })
+    }
+
+    init();
+</script>
+
+</html>
