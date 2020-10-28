@@ -15,6 +15,8 @@
     <link rel="stylesheet" href="../../css/home.css">
 
     <script type="text/javascript" src="../../scripts/script.js"></script>
+    <!-- Alertas -->
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <!-- Controlador -->
     <!-- <script type="text/javascript" src="../../scripts/administration/songsController.js"></script> -->
 
@@ -88,7 +90,7 @@
                     <div class="eight wide column">
                         <h3>Datos de la canción:</h3>
                         <form class="ui form">
-                            <div class="field">
+                            <div class="field" hidden>
                                 <label>Id</label>
                                 <input type="text" id="id_song" name="id_song" placeholder="Id" disabled>
                             </div>
@@ -120,7 +122,7 @@
                                 <label>Link youtube</label>
                                 <textarea rows="2" id="link_youtube" placeholder="Link de youtube"></textarea>
                             </div>
-                            <div class="field">
+                            <div class="field" hidden>
                                 <label>Estado</label>
                                 <input type="text" id="state" name="state" placeholder="Estado" disabled>
                             </div>
@@ -254,8 +256,13 @@
             })
             .then(response => {
                 console.log('Success:', response);
-                alert(response.message)
-                location.href = "./songsView.html"
+                //alert(response.message)
+                //swal("¡Editado con éxito!", "¡Canción editada!", "success");
+                swal("¡Editado con éxito!", "Canción editada: " + name, "success")
+                    .then((value) => {
+                        location.href = "./songsView.html"
+                    });
+                //location.href = "./songsView.html"
             })
     }
 
