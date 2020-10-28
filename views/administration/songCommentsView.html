@@ -5,7 +5,7 @@
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
-    <title>Principal - Administrador</title>
+    <title>Comentarios de canción - Administrador</title>
 
     <script src="https://code.jquery.com/jquery-3.1.1.min.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
@@ -88,32 +88,17 @@
                 <div class="row">
                     <div class="one wide column"></div>
                     <div class="fourteen wide column">
-                        <h3>Canciones</h3>
+                        <h3>Comentarios</h3>
                         <table class="ui fixed black celled table">
                             <!-- <table class="ui teal table"> -->
                             <thead>
                                 <tr>
-                                    <th class="centered">Imagen</th>
-                                    <th class="centered">Nombre</th>
-                                    <th class="centered">Artista</th>
-                                    <th class="centered">Álbum</th>
                                     <th class="centered">Fecha</th>
-                                    <!-- <th class="centered">Spotify</th>
-                                    <th class="centered">Youtube</th> -->
-                                    <th class="centered">Opciones</th>
+                                    <th class="centered">Nombre de usuario</th>
+                                    <th class="centered">Descripción</th>
                                 </tr>
                             </thead>
                             <tbody id="CuerpoTabla">
-                                <!-- <tr>
-                                    <td>Apples</td>
-                                    <td>200</td>
-                                    <td>0g</td>
-                                </tr>
-                                <tr>
-                                    <td>Orange</td>
-                                    <td>310</td>
-                                    <td>0g</td>
-                                </tr> -->
                             </tbody>
                         </table>
                     </div>
@@ -158,9 +143,17 @@
 
 <script>
     function init() {
+
+        var id_song = sessionStorage.id_song_comments
+        console.log(id_song)
+
         var contenido = document.querySelector('#CuerpoTabla')
         contenido.innerHTML = ""
-        fetch('http://localhost:3000/songs')
+        fetch(`http://localhost:3000/comments_song/${id_song}`, {
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
             .then(response => response.json())
             .catch(error => {
                 console.log(error)
@@ -175,69 +168,13 @@
                         // console.log(res[i])
                         contenido.innerHTML +=
                             `<tr>
-                        <th>
-                            <img class="img_table" src="${res[i][j].image}">
-                        </th>
-                        <th class="centered">${res[i][j].name}</th>
-                        <th class="centered">${res[i][j].artist}</th>
-                        <th class="centered">${res[i][j].album}</th>
                         <th class="centered">${res[i][j].date}</th>
-                        <!-- <th class="centered">${res[i][j].link_spotify}</th>
-                        <th class="centered">${res[i][j].link_youtube}</th> -->
-                        <th class="centered">
-                            <div class="ui small icon buttons">
-                                <button class="ui blue button" data-inverted="" data-tooltip="Ver comentarios" data-position="top left" onclick="comments_song(${res[i][j].id})"><i class="eye icon"></i></button>
-                                <button class="ui teal button" data-inverted="" data-tooltip="Editar" data-position="top center" onclick="edit_song(${res[i][j].id})"><i class="edit icon"></i></button>
-                                <button class="ui red button" data-inverted="" data-tooltip="Eliminar" data-position="top right" onclick="delet_song(${res[i][j].id})"><i class="trash alternate icon"></i></button>
-                            </div>
-                        </th>
+                        <th class="centered">${res[i][j].id_user}</th>
+                        <th class="centered">${res[i][j].description}</th>
                         </tr>`
                     }
                 }
             })
-    }
-
-    function comments_song(id) {
-        console.log("comentarios: " + id);
-
-        var id_song = id
-        sessionStorage.setItem("id_song_comments", id_song)
-        location.href = "./songCommentsView.html"
-    }
-
-    function edit_song(id) {
-        console.log("edita: " + id);
-
-        var id_song = id
-        sessionStorage.setItem("id_song_edit", id_song)
-        location.href = "./songEditView.html"
-    }
-
-    function delet_song(id) {
-        console.log("eliminar: " + id);
-        swal({
-                title: "¿Estás seguro?",
-                text: "¡Una vez eliminado, no podrá recuperarlo!",
-                icon: "warning",
-                buttons: true,
-                dangerMode: true,
-            })
-            .then((willDelete) => {
-                if (willDelete) {
-                    swal("¡Eliminado con éxito!", "Canción eliminada", "success")
-                        .then((value) => {
-                            fetch(`http://localhost:3000/songs/${id}`, {
-                                    method: 'DELETE'
-                                }).then(res => res.json())
-                                .catch(error => console.error('Error:', error))
-                                .then(response => console.log('Success:', response));
-
-                            init();
-                        });
-                } else {
-                    swal("¡Canción a salvo!");
-                }
-            });
     }
 
     init();
