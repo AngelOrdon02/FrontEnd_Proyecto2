@@ -166,10 +166,35 @@
                     for (var j in res[i]) {
                         // console.log(res[i][j])
                         // console.log(res[i])
+
+                        var id_user_comments = res[i][j].id_user
+                            //var name_user = null;
+
+                        fetch(`http://localhost:3000/users/${id_user_comments}`, {
+                                headers: {
+                                    'Content-Type': 'application/json'
+                                }
+                            })
+                            .then(response => response.json())
+                            .catch(error => {
+                                console.log(error)
+                            })
+                            .then(res => {
+                                console.log(res)
+                                for (var i in res) {
+                                    var name_user = res[i].name
+                                    window.name_user = name_user;
+                                    //var name_user = res[i].name
+                                    //sessionStorage.setItem("name_user_comment", res[i].name)
+                                }
+                            })
+
+                        //var name_user = sessionStorage.name_user_comment
                         contenido.innerHTML +=
                             `<tr>
                         <th class="centered">${res[i][j].date}</th>
-                        <th class="centered">${res[i][j].id_user}</th>
+                        <!-- <th class="centered">${res[i][j].id_user}</th> -->
+                        <th class="centered">${window.name_user}</th>
                         <th class="centered">${res[i][j].description}</th>
                         </tr>`
                     }
