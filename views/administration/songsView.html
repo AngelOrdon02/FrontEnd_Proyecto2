@@ -294,7 +294,8 @@
                 }).then(res => res.json())
                 .catch(error => {
                     console.error('Error:', error)
-                    alert("Ocurrio un error al consumir la API, revise la consola")
+                        //alert("Ocurrio un error al consumir la API, revise la consola")
+                    swal("¡Ocurrio un error!", "¡No se pudo subir el archivo!", "error");
                     val = false
                 })
                 .then(response => {
@@ -306,9 +307,11 @@
         if (val == true) {
             //Usamos el alert para mandar respuestas del navegador hacia el usuario
             //Unicamente tenemos que mandar el texto
-            alert("Se agregaron las canciones exitosamente")
-                // Llamamos el metodo para actualizar la tabla
-            init();
+            //alert("Se agregaron las canciones exitosamente")
+            swal("¡Archivo subido con éxito!", "Canciones agregadas", "success")
+                .then((value) => {
+                    init();
+                });
         }
     }
 
