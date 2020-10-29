@@ -76,7 +76,7 @@
 
             <div class="ui text container">
                 <h1 class="ui inverted header">
-                    Estatus de canciones
+                    Comentarios de canción
                 </h1>
                 <!-- <h2>Do whatever you want when you want to.</h2> -->
             </div>
@@ -88,6 +88,10 @@
                 <div class="row">
                     <div class="one wide column"></div>
                     <div class="fourteen wide column">
+                        <h3>Canción</h3>
+                        <div class="ui grid" id="DatosCancion">
+                        </div>
+
                         <h3>Comentarios</h3>
                         <table class="ui fixed black celled table">
                             <!-- <table class="ui teal table"> -->
@@ -147,6 +151,49 @@
         var id_song = sessionStorage.id_song_comments
         console.log(id_song)
 
+        var datosCancion = document.querySelector('#DatosCancion')
+        datosCancion.innerHTML = ""
+        fetch(`http://localhost:3000/songs/${id_song}`, {
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
+            .then(response => response.json())
+            .catch(error => {
+                console.log(error)
+            })
+            .then(res => {
+                console.log(res)
+                for (var i in res) {
+                    datosCancion.innerHTML =
+                        `<div class="row">
+                            <div class="four wide column">
+                                <img class="img_comments" src="${res[i].image}">
+                            </div>
+                            <div class="four wide column">
+                                <div class="ui large list">
+                                    <div class="item">
+                                        <div class="header">Nombre</div>
+                                        ${res[i].name}
+                                    </div>
+                                    <div class="item">
+                                        <div class="header">Artista</div>
+                                        ${res[i].artist}
+                                    </div>
+                                    <div class="item">
+                                        <div class="header">Álbum</div>
+                                        ${res[i].album}
+                                    </div>
+                                    <div class="item">
+                                        <div class="header">Fecha</div>
+                                        ${res[i].date}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>`
+                }
+            })
+
         var contenido = document.querySelector('#CuerpoTabla')
         contenido.innerHTML = ""
         fetch(`http://localhost:3000/comments_song/${id_song}`, {
@@ -164,37 +211,10 @@
                 console.log(res)
                 for (var i in res) {
                     for (var j in res[i]) {
-                        // console.log(res[i][j])
-                        // console.log(res[i])
-
-                        var id_user_comments = res[i][j].id_user
-                            //var name_user = null;
-
-                        fetch(`http://localhost:3000/users/${id_user_comments}`, {
-                                headers: {
-                                    'Content-Type': 'application/json'
-                                }
-                            })
-                            .then(response => response.json())
-                            .catch(error => {
-                                console.log(error)
-                            })
-                            .then(res => {
-                                console.log(res)
-                                for (var i in res) {
-                                    var name_user = res[i].name
-                                    window.name_user = name_user;
-                                    //var name_user = res[i].name
-                                    //sessionStorage.setItem("name_user_comment", res[i].name)
-                                }
-                            })
-
-                        //var name_user = sessionStorage.name_user_comment
                         contenido.innerHTML +=
                             `<tr>
                         <th class="centered">${res[i][j].date}</th>
-                        <!-- zz<th class="centered">${res[i][j].id_user}</th> -->
-                        <th class="centered">${window.name_user}</th>
+                        <th class="centered">${res[i][j].username_user}</th>
                         <th class="centered">${res[i][j].description}</th>
                         </tr>`
                     }
