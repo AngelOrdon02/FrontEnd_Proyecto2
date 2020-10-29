@@ -5,15 +5,20 @@
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
-    <title>Principal - Administrador</title>
+    <title>Solicitudes - Administrador</title>
 
     <script src="https://code.jquery.com/jquery-3.1.1.min.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
     <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
 
+    <link rel="stylesheet" href="../../css/style.css">
     <link rel="stylesheet" href="../../css/home.css">
 
     <script type="text/javascript" src="../../scripts/script.js"></script>
+    <!-- Alertas -->
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <!-- Controlador -->
+    <!-- <script type="text/javascript" src="../../scripts/administration/songsController.js"></script> -->
 
 </head>
 
@@ -58,20 +63,19 @@
                     <a class="toc item">
                         <i class="sidebar icon"></i>
                     </a>
-                    <a class="active item">Home</a>
-                    <a class="item">Work</a>
-                    <a class="item">Company</a>
-                    <a class="item">Careers</a>
+                    <a class="item" onclick="goPrincipalView()">Principal</a>
+                    <a class="active item" onclick="goRequestsView()">Solicitudes</a>
+                    <a class="item" onclick="goUsersView()">Usuarios</a>
                     <div class="right item">
                         <!-- <a class="ui inverted button">Log in</a> -->
-                        <a class="ui inverted button">Sign Up</a>
+                        <a class="ui inverted button">Cerrar sesión</a>
                     </div>
                 </div>
             </div>
 
             <div class="ui text container">
                 <h1 class="ui inverted header">
-                    Estatus de canciones
+                    Solicitudes de canciones
                 </h1>
                 <!-- <h2>Do whatever you want when you want to.</h2> -->
             </div>
@@ -81,33 +85,32 @@
         <div class="ui vertical stripe">
             <div class="ui middle aligned stackable grid container">
                 <div class="row">
-                    <div class="two wide column"></div>
-                    <div class="twelve wide column">
-                        <h3>Canciones</h3>
-                        <table class="ui teal table">
+                    <div class="one wide column"></div>
+                    <div class="fourteen wide column">
+                        <div class="ui grid">
+                            <div class="row">
+                                <div class="five wide column">
+                                    <h3>Canciones</h3>
+                                </div>
+                            </div>
+                        </div>
+                        <table class="ui fixed black celled table">
+                            <!-- <table class="ui teal table"> -->
                             <thead>
                                 <tr>
-                                    <th>Food</th>
-                                    <th>Calories</th>
-                                    <th>Opciones</th>
-                                    <!-- <th style="text-align: right;">Opciones</th> -->
+                                    <th class="centered">Imagen</th>
+                                    <th class="centered">Nombre</th>
+                                    <th class="centered">Artista</th>
+                                    <th class="centered">Álbum</th>
+                                    <th class="centered">Fecha</th>
+                                    <th class="centered">Opciones</th>
                                 </tr>
                             </thead>
-                            <tbody>
-                                <tr>
-                                    <td>Apples</td>
-                                    <td>200</td>
-                                    <td>0g</td>
-                                </tr>
-                                <tr>
-                                    <td>Orange</td>
-                                    <td>310</td>
-                                    <td>0g</td>
-                                </tr>
+                            <tbody id="CuerpoTabla">
                             </tbody>
                         </table>
                     </div>
-                    <div class="two wide column"></div>
+                    <div class="one wide column"></div>
                 </div>
 
             </div>
@@ -145,5 +148,94 @@
     </div>
 
 </body>
+
+<script>
+    function init() {
+        var contenido = document.querySelector('#CuerpoTabla')
+        contenido.innerHTML = ""
+        fetch('http://localhost:3000/songs')
+            .then(response => response.json())
+            .catch(error => {
+                console.log(error)
+            })
+            .then(res => {
+                //Recorriendo nuestro res e incrementando el innerHTML de nuestro elemento
+                //Identificado como contenido
+                console.log(res)
+                for (var i in res) {
+                    for (var j in res[i]) {
+                        if (res[i][j].state == 2) {
+                            // console.log(res[i][j])
+                            // console.log(res[i])
+                            contenido.innerHTML +=
+                                `<tr>
+                        <th>
+                            <img class="img_table" src="${res[i][j].image}">
+                        </th>
+                        <th class="centered">${res[i][j].name}</th>
+                        <th class="centered">${res[i][j].artist}</th>
+                        <th class="centered">${res[i][j].album}</th>
+                        <th class="centered">${res[i][j].date}</th>
+                        <!-- <th class="centered">${res[i][j].link_spotify}</th>
+                        <th class="centered">${res[i][j].link_youtube}</th> -->
+                        <th class="centered">
+                            <div class="ui small icon buttons">
+                                <button class="ui teal button" data-inverted="" data-tooltip="Aceptar" data-position="top center" onclick="decisionSong(${res[i][j].id},1)"><i class="thumbs up icon"></i></button>
+                                <button class="ui orange button" data-inverted="" data-tooltip="Rechazar" data-position="top right" onclick="decisionSong(${res[i][j].id},3)"><i class="thumbs down icon"></i></button>
+                            </div>
+                        </th>
+                        </tr>`
+                        }
+                    }
+                }
+            })
+    }
+
+    function decisionSong(id, state) {
+        console.log("comentarios: " + id + ", estado: " + state);
+
+        var id_song = id;
+
+        var data = {
+            'state': state
+        }
+
+        fetch(`http://localhost:3000/songs_state/${id_song}`, {
+                method: 'PUT',
+                body: JSON.stringify(data),
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+
+            }).then(res => res.json())
+            .catch(error => {
+                console.error('Error:', error)
+                    //alert("Ocurrio un error al consumir la API, revise la consola")
+                swal("¡Ocurrio un error!", "¡No se pudo modificar!", "error");
+            })
+            .then(response => {
+                console.log('Success:', response);
+                //alert(response.message)
+                //swal("¡Editado con éxito!", "¡Canción editada!", "success");
+                swal("¡Aceptado con éxito!", "Canción activa", "success")
+                    .then((value) => {
+                        init();
+                    });
+                //location.href = "./songsView.html"
+            })
+    }
+
+    function goPrincipalView() {
+        location.href = "./songsView.html"
+    }
+
+    function goRequestsView() {
+        location.href = "./request_songsView.html"
+    }
+
+    function goUsersView() {}
+
+    init();
+</script>
 
 </html>

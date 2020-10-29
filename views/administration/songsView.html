@@ -63,9 +63,9 @@
                     <a class="toc item">
                         <i class="sidebar icon"></i>
                     </a>
-                    <a class="active item">Principal</a>
-                    <a class="item">Solicitudes</a>
-                    <a class="item">Usuarios</a>
+                    <a class="active item" onclick="goPrincipalView()">Principal</a>
+                    <a class="item" onclick="goRequestsView()">Solicitudes</a>
+                    <a class="item" onclick="goUsersView()">Usuarios</a>
                     <div class="right item">
                         <!-- <a class="ui inverted button">Log in</a> -->
                         <a class="ui inverted button">Cerrar sesión</a>
@@ -356,6 +356,16 @@
                 }
             });
     }
+
+    function goPrincipalView() {
+        location.href = "./songsView.html"
+    }
+
+    function goRequestsView() {
+        location.href = "./request_songsView.html"
+    }
+
+    function goUsersView() {}
 
     init();
 </script>
