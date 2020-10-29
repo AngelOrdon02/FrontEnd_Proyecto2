@@ -88,7 +88,32 @@
                 <div class="row">
                     <div class="one wide column"></div>
                     <div class="fourteen wide column">
-                        <h3>Canciones</h3>
+                        <div class="ui grid">
+                            <div class="row">
+                                <div class="five wide column">
+                                    <h3>Canciones</h3>
+                                </div>
+                                <div class="eleven wide column">
+                                    <div class="position_right">
+                                        <!-- <div class="ui labeled button" tabindex="0">
+                                            <div class="ui teal button">
+                                                <i class="upload icon"></i> Seleccione un archivo
+                                            </div>
+                                            <div class="ui basic teal left pointing label">
+                                                <a class="ui basic teal">
+                                                    asdfsadfasdfsafsdf.csv
+                                                </a>
+                                            </div>
+                                        </div> -->
+                                        <input type="file" id="file" />
+                                        <button class="ui green button" onclick="fileUpload()">
+                                            <i class="cloud upload icon"></i>
+                                            Cargar archivo al sistema
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                         <table class="ui fixed black celled table">
                             <!-- <table class="ui teal table"> -->
                             <thead>
@@ -156,6 +181,8 @@
 
 </body>
 
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.0/papaparse.min.js"></script>
 <script>
     function init() {
         var contenido = document.querySelector('#CuerpoTabla')
@@ -171,10 +198,11 @@
                 console.log(res)
                 for (var i in res) {
                     for (var j in res[i]) {
-                        // console.log(res[i][j])
-                        // console.log(res[i])
-                        contenido.innerHTML +=
-                            `<tr>
+                        if (res[i][j].state == 1) {
+                            // console.log(res[i][j])
+                            // console.log(res[i])
+                            contenido.innerHTML +=
+                                `<tr>
                         <th>
                             <img class="img_table" src="${res[i][j].image}">
                         </th>
@@ -192,9 +220,96 @@
                             </div>
                         </th>
                         </tr>`
+                        }
                     }
                 }
             })
+    }
+
+    async function fileUpload() {
+        //Usamos $(nombre del input donde esta el archivo).parse
+        $('#file').parse({
+            config: {
+                //Agregamos las configuraciones y le decimos
+                //Quien es el delimitador y que hara luego de leer el archivo
+                //En este caso usamos delimitador "," y que haga el metodo GuardarCanciones
+                delimiter: ",",
+                complete: await saveSongs,
+            },
+            //Esto es lo que hara antes de leer el archivo
+            before: function(file, inputElem) {
+                console.log("Parsing file...", file);
+            },
+            //Esto es lo que hara si encuentra un error
+            error: function(err, file) {
+                console.log("ERROR:", err, file);
+            },
+            //Esto es lo que hara cuando termina de parsear el archivo
+            complete: function() {
+                console.log("Done with all files");
+            }
+        });
+    }
+
+    async function saveSongs(results) {
+        //En este caso results es un objeto con nuestros datos parseados
+        //Y el atributo .data es el que tiene lo que necesitamos
+        console.log(results.data)
+        var data = results.data;
+        var val = true
+            //Data al final termina siendo un arreglo de arreglos
+            //data[i] = La fila del archivo csv
+            //data[i][n] = Donde n representa la columan en cuestion
+            //Leemos las filas de data
+        for (i = 0; i < data.length; i++) {
+            //Hacemos el proceso necesarioa para guardar un dato en la API
+            var nombre = data[i][0]
+            var artista = data[i][1]
+            var album = data[i][2]
+            var fecha = data[i][3]
+            var imagen = data[i][4]
+            var spotify = data[i][5]
+            var youtube = data[i][6]
+                // State (estado) es 1 para que este activo
+            var state = 1;
+
+            var objeto = {
+                'name': nombre,
+                'artist': artista,
+                'album': album,
+                'date': fecha,
+                'image': imagen,
+                'link_spotify': spotify,
+                'link_youtube': youtube,
+                'state': state
+            }
+            console.log(objeto)
+                //Aplicamos nuestro metodo magico con sus 3 metodos, then, catch, then
+            fetch('http://localhost:3000/songs', {
+                    method: 'POST',
+                    body: JSON.stringify(objeto),
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                }).then(res => res.json())
+                .catch(error => {
+                    console.error('Error:', error)
+                    alert("Ocurrio un error al consumir la API, revise la consola")
+                    val = false
+                })
+                .then(response => {
+                    console.log('Success:', response);
+                })
+        }
+        //En mi caso, como yo lo programe, es que si hay un error a la hora de guardar las canciones
+        //No me muestre nada, pero si las guarda, esto es meramente visual
+        if (val == true) {
+            //Usamos el alert para mandar respuestas del navegador hacia el usuario
+            //Unicamente tenemos que mandar el texto
+            alert("Se agregaron las canciones exitosamente")
+                // Llamamos el metodo para actualizar la tabla
+            init();
+        }
     }
 
     function comments_song(id) {
