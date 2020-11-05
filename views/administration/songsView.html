@@ -19,8 +19,6 @@
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <!-- Reportes -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.4/jspdf.min.js"></script>
-    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.1.1/jspdf.umd.min.js"></script> -->
-    <!-- <script src="https://unpkg.com/jspdf@2.1.1/dist/jspdf.es.min.js"></script> -->
     <script src="https://unpkg.com/jspdf-autotable@3.5.13/dist/jspdf.plugin.autotable.js"></script>
     <!-- Controlador -->
     <!-- <script type="text/javascript" src="../../scripts/administration/songsController.js"></script> -->
@@ -334,61 +332,6 @@
         }
     }
 
-    function report() {
-        var pdf = new jsPDF();
-        pdf.text(20, 20, "Reporte - Canciones activas");
-
-        // var columns = ["Id", "Nombre", "Email", "Pais"];
-        var data0 = [
-            [1, "Hola", "hola@gmail.com", "Mexico"],
-            [2, "Hello", "hello@gmail.com", "Estados Unidos"],
-            [3, "Otro", "otro@gmail.com", "Otro"]
-        ];
-
-        var columns = ["No.", "Nombre", "Artista", "Álbum", "Fecha"];
-        var data = [];
-
-        var date = new Date();
-
-        fetch('http://localhost:3000/songs')
-            .then(response => response.json())
-            .catch(error => {
-                console.log(error)
-            })
-            .then(res => {
-                //Recorriendo nuestro res e incrementando el innerHTML de nuestro elemento
-                //Identificado como contenido
-                console.log(res)
-                var cont = 1;
-                for (var i in res) {
-                    for (var j in res[i]) {
-                        if (res[i][j].state == 1) {
-                            var objeto = [
-                                // Le agregas la fecha
-                                cont,
-                                res[i][j].name,
-                                res[i][j].artist,
-                                res[i][j].album,
-                                res[i][j].date
-                            ]
-
-                            data.push(objeto);
-                            cont++;
-                        }
-                    }
-                }
-                console.log(data0)
-                console.log(data)
-                pdf.autoTable(columns, data, {
-                    margin: {
-                        top: 25
-                    }
-                });
-
-                pdf.save('Reporte_Canciones_' + date + '.pdf');
-            })
-    }
-
     function comments_song(id) {
         console.log("comentarios: " + id);
 
@@ -430,6 +373,61 @@
                     swal("¡Canción a salvo!");
                 }
             });
+    }
+
+    function report() {
+        var pdf = new jsPDF();
+        pdf.text(20, 20, "Reporte - Canciones activas");
+
+        // var columns = ["Id", "Nombre", "Email", "Pais"];
+        // var data0 = [
+        //     [1, "Hola", "hola@gmail.com", "Mexico"],
+        //     [2, "Hello", "hello@gmail.com", "Estados Unidos"],
+        //     [3, "Otro", "otro@gmail.com", "Otro"]
+        // ];
+
+        var columns = ["No.", "Nombre", "Artista", "Álbum", "Fecha"];
+        var data = [];
+
+        var date = new Date();
+
+        fetch('http://localhost:3000/songs')
+            .then(response => response.json())
+            .catch(error => {
+                console.log(error)
+            })
+            .then(res => {
+                //Recorriendo nuestro res e incrementando el innerHTML de nuestro elemento
+                //Identificado como contenido
+                console.log(res)
+                var cont = 1;
+                for (var i in res) {
+                    for (var j in res[i]) {
+                        if (res[i][j].state == 1) {
+                            var objeto = [
+                                // Le agregas la fecha
+                                cont,
+                                res[i][j].name,
+                                res[i][j].artist,
+                                res[i][j].album,
+                                res[i][j].date
+                            ]
+
+                            data.push(objeto);
+                            cont++;
+                        }
+                    }
+                }
+                //console.log(data0)
+                console.log(data)
+                pdf.autoTable(columns, data, {
+                    margin: {
+                        top: 25
+                    }
+                });
+
+                pdf.save('Reporte_Canciones_' + date + '.pdf');
+            })
     }
 
     function goPrincipalView() {

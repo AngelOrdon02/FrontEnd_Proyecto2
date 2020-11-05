@@ -17,6 +17,9 @@
     <script type="text/javascript" src="../../scripts/script.js"></script>
     <!-- Alertas -->
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <!-- Reportes -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.4/jspdf.min.js"></script>
+    <script src="https://unpkg.com/jspdf-autotable@3.5.13/dist/jspdf.plugin.autotable.js"></script>
     <!-- Controlador -->
     <!-- <script type="text/javascript" src="../../scripts/administration/songsController.js"></script> -->
 
@@ -98,6 +101,14 @@
                             <div class="row">
                                 <div class="five wide column">
                                     <h3>Usuarios</h3>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="five wide column">
+                                    <button class="ui brown button" onclick="report()">
+                                        <i class="file alternate icon"></i>
+                                        Reporte PDF
+                                    </button>
                                 </div>
                                 <div class="eleven wide column">
                                     <div class="position_right">
@@ -239,6 +250,67 @@
                     swal("¡Usuario a salvo!");
                 }
             });
+    }
+
+    function report() {
+        var pdf = new jsPDF();
+        pdf.text(20, 20, "Reporte - Canciones activas");
+
+        // var columns = ["Id", "Nombre", "Email", "Pais"];
+        // var data0 = [
+        //     [1, "Hola", "hola@gmail.com", "Mexico"],
+        //     [2, "Hello", "hello@gmail.com", "Estados Unidos"],
+        //     [3, "Otro", "otro@gmail.com", "Otro"]
+        // ];
+
+        var columns = ["No.", "Nombre de usuario", "Nombre", "Apellido", "Tipo de usuario"];
+        var data = [];
+
+        var date = new Date();
+
+        fetch('http://localhost:3000/users')
+            .then(response => response.json())
+            .catch(error => {
+                console.log(error)
+            })
+            .then(res => {
+                //Recorriendo nuestro res e incrementando el innerHTML de nuestro elemento
+                //Identificado como contenido
+                console.log(res)
+                var cont = 1;
+                for (var i in res) {
+                    for (var j in res[i]) {
+                        var user_type = null;
+
+                        if (res[i][j].user_type == 1) {
+                            user_type = 'Administrador';
+                        } else if (res[i][j].user_type == 2) {
+                            user_type = 'Usuario';
+                        }
+
+                        var objeto = [
+                            // Le agregas la fecha
+                            cont,
+                            res[i][j].username,
+                            res[i][j].name,
+                            res[i][j].lastname,
+                            user_type
+                        ]
+
+                        data.push(objeto);
+                        cont++;
+                    }
+                }
+                //console.log(data0)
+                console.log(data)
+                pdf.autoTable(columns, data, {
+                    margin: {
+                        top: 25
+                    }
+                });
+
+                pdf.save('Reporte_Usuarios_' + date + '.pdf');
+            })
     }
 
     function goPrincipalView() {
