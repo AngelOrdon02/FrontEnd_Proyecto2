@@ -348,6 +348,8 @@
         var columns = ["No.", "Nombre", "Artista", "Álbum", "Fecha"];
         var data = [];
 
+        var date = new Date();
+
         fetch('http://localhost:3000/songs')
             .then(response => response.json())
             .catch(error => {
@@ -383,7 +385,7 @@
                     }
                 });
 
-                pdf.save('Reporte_Canciones.pdf');
+                pdf.save('Reporte_Canciones_' + date + '.pdf');
             })
     }
 
