@@ -10,7 +10,8 @@
     <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
 
     <link rel="stylesheet" href="../../css/login.css">
-
+    <!-- Alertas -->
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 </head>
 
 <body>
@@ -28,40 +29,34 @@
                     <div class="field">
                         <div class="ui left icon input">
                             <i class="user icon"></i>
-                            <input type="text" name="name" placeholder="Nombre">
+                            <input type="text" id="name" name="name" placeholder="Nombre">
                         </div>
                     </div>
                     <div class="field">
                         <div class="ui left icon input">
                             <i class="user icon"></i>
-                            <input type="text" name="lastname" placeholder="Apellido">
+                            <input type="text" id="lastname" name="lastname" placeholder="Apellido">
                         </div>
                     </div>
                     <div class="field">
                         <div class="ui left icon input">
                             <i class="user icon"></i>
-                            <input type="text" name="username" placeholder="Nombre de usuario">
-                        </div>
-                    </div>
-                    <div class="field">
-                        <div class="ui left icon input">
-                            <i class="user icon"></i>
-                            <input type="text" name="email" placeholder="Correo electronico">
+                            <input type="text" id="username" name="username" placeholder="Nombre de usuario">
                         </div>
                     </div>
                     <div class="field">
                         <div class="ui left icon input">
                             <i class="lock icon"></i>
-                            <input type="password" name="password" placeholder="Contraseña">
+                            <input type="password" id="password" name="password" placeholder="Contraseña">
                         </div>
                     </div>
                     <div class="field">
                         <div class="ui left icon input">
                             <i class="lock icon"></i>
-                            <input type="password" name="password_confirm" placeholder="Confirmar contraseña">
+                            <input type="password" id="confirm_password" name="password_confirm" placeholder="Confirmar contraseña">
                         </div>
                     </div>
-                    <div class="ui fluid large teal submit button">Registrar</div>
+                    <div class="ui fluid large teal button" onclick="register()">Registrar</div>
                 </div>
 
                 <div class="ui error message"></div>
@@ -71,5 +66,87 @@
     </div>
 
 </body>
+
+<script>
+    function register() {
+        // var id_song = sessionStorage.id_song_edit;
+        // console.log(id_song);
+
+        var name = document.querySelector('#name').value
+        var lastname = document.querySelector('#lastname').value
+        var username = document.querySelector('#username').value
+        var password = document.querySelector('#password').value
+        var confirm_password = document.querySelector('#confirm_password').value
+
+        //var id_user = document.querySelector('#id_user').value
+        //var user_type = document.querySelector('#user_type').value
+        // user_type = 1 => Usuario administrador
+        var user_type = 2;
+
+        fetch(`http://localhost:3000/user_exists/${username}`, {
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
+            .then(response => response.json())
+            .catch(error => {
+                console.log(error)
+            })
+            .then(res => {
+                console.log(res)
+                for (var i in res) {
+
+                    state = res[i]
+                    console.log("Nombre de usuario: " + username)
+                    console.log("Estado: " + state)
+
+                    if (state == 1) {
+                        swal("¡Ocurrio un error!", "¡El nombre de usuario ya esta tomado, utilice otro por favor!", "error");
+                    } else if (state == 0) {
+
+                        if (password != confirm_password) {
+                            swal("¡Ocurrio un error!", "¡La contraseña de confirmación no coincide!", "error");
+                        } else if (password == confirm_password) {
+
+                            var data = {
+                                'name': name,
+                                'lastname': lastname,
+                                'username': username,
+                                'password': password,
+                                'user_type': user_type
+                            }
+
+                            console.log(data);
+                            fetch('http://localhost:3000/users', {
+                                    method: 'POST',
+                                    body: JSON.stringify(data),
+                                    headers: {
+                                        'Content-Type': 'application/json'
+                                    }
+
+                                }).then(res => res.json())
+                                .catch(error => {
+                                    console.error('Error:', error)
+                                        //alert("Ocurrio un error al consumir la API, revise la consola")
+                                    swal("¡Ocurrio un error!", "¡No se pudo crear el usuario!", "error");
+                                })
+                                .then(response => {
+                                    console.log('Success:', response);
+                                    //alert(response.message)
+                                    //swal("¡Editado con éxito!", "¡Canción editada!", "success");
+                                    swal("¡Creado con éxito!", "Usuario creado: " + username, "success")
+                                        .then((value) => {
+                                            location.href = "./loginView.html"
+                                        });
+                                    //location.href = "./songsView.html"
+                                })
+
+                        }
+
+                    }
+                }
+            })
+    }
+</script>
 
 </html>

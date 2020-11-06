@@ -46,11 +46,11 @@
             </form>
 
             <div class="ui message">
-                ¿Olvidaste tu contraseña? <a href="#">Recuperala</a>
+                ¿Olvidaste tu contraseña? <a onclick="recover()">Recuperala</a>
             </div>
 
             <div class="ui message">
-                ¿Eres nuevo? <a href="#">Registrate</a>
+                ¿Eres nuevo? <a onclick="register()">Registrate</a>
             </div>
         </div>
     </div>
@@ -140,6 +140,14 @@
 
             })
 
+    }
+
+    function recover() {
+        location.href = "./recoverView.html"
+    }
+
+    function register() {
+        location.href = "./registerView.html"
     }
 </script>
 
