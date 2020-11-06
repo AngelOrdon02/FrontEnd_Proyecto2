@@ -70,8 +70,8 @@
                     <label class="right item"></label>
                     <label class="right item"></label>
                     <label class="right item"></label>
-                    <div>
-                        <label class="right item">Nombre del usuario</label>
+                    <div id="username_label">
+                        <!-- <label class="right item">Nombre del usuario</label> -->
                     </div>
                     <div class="right item">
                         <!-- <a class="ui inverted button">Log in</a> -->
@@ -218,6 +218,17 @@
                 // document.querySelector('#state').value = res.state
             })
 
+        // Para el nombre de usuario
+        var session_username = sessionStorage.session_username
+            //console.log(session_username)
+        var contenidoUsername = document.querySelector('#username_label')
+        contenidoUsername.innerHTML = ""
+
+        contenidoUsername.innerHTML =
+            `
+                <a class="right item" onclick="profile()">${session_username}</a>
+            `
+
     }
 
     function edit() {
@@ -270,6 +281,10 @@
                     });
                 //location.href = "./songsView.html"
             })
+    }
+
+    function profile() {
+        location.href = "./profileAdminView.html"
     }
 
     function goPrincipalView() {

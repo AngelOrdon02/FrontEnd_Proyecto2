@@ -70,8 +70,8 @@
                     <label class="right item"></label>
                     <label class="right item"></label>
                     <label class="right item"></label>
-                    <div>
-                        <label class="right item">Nombre del usuario</label>
+                    <div id="username_label">
+                        <!-- <label class="right item">Nombre del usuario</label> -->
                     </div>
                     <div class="right item">
                         <!-- <a class="ui inverted button">Log in</a> -->
@@ -196,6 +196,17 @@
                     }
                 }
             })
+
+        // Para el nombre de usuario
+        var session_username = sessionStorage.session_username
+            //console.log(session_username)
+        var contenidoUsername = document.querySelector('#username_label')
+        contenidoUsername.innerHTML = ""
+
+        contenidoUsername.innerHTML =
+            `
+                <a class="right item" onclick="profile()">${session_username}</a>
+            `
     }
 
     function decisionSong(id, state) {
@@ -224,12 +235,23 @@
                 console.log('Success:', response);
                 //alert(response.message)
                 //swal("¡Editado con éxito!", "¡Canción editada!", "success");
-                swal("¡Aceptado con éxito!", "Canción activa", "success")
-                    .then((value) => {
-                        init();
-                    });
-                //location.href = "./songsView.html"
+
+                if (state == 1) {
+                    swal("¡Aceptado con éxito!", "Canción activa", "success")
+                        .then((value) => {
+                            init();
+                        });
+                } else if (state == 3) {
+                    swal("Rechazada con éxito!", "Canción rechazada", "info")
+                        .then((value) => {
+                            init();
+                        });
+                }
             })
+    }
+
+    function profile() {
+        location.href = "./profileAdminView.html"
     }
 
     function goPrincipalView() {
