@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+    <title>Perfil - Usuario</title>
+
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
+
+    <link rel="stylesheet" href="../../css/style.css">
+    <link rel="stylesheet" href="../../css/home.css">
+
+    <script type="text/javascript" src="../../scripts/script.js"></script>
+    <!-- Alertas -->
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <!-- Controlador -->
+    <!-- <script type="text/javascript" src="../../scripts/administration/songsController.js"></script> -->
+
+</head>
+
+<body>
+
+    <!-- Following Menu -->
+    <div class="ui large top fixed hidden menu">
+        <div class="ui container">
+            <a class="active item">Home</a>
+            <a class="item">Work</a>
+            <a class="item">Company</a>
+            <a class="item">Careers</a>
+            <div class="right menu">
+                <div class="item">
+                    <a class="ui button">Log in</a>
+                </div>
+                <div class="item">
+                    <a class="ui primary button">Sign Up</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Sidebar Menu -->
+    <div class="ui vertical inverted sidebar menu">
+        <a class="active item">Home</a>
+        <a class="item">Work</a>
+        <a class="item">Company</a>
+        <a class="item">Careers</a>
+        <a class="item">Login</a>
+        <a class="item">Signup</a>
+    </div>
+
+
+    <!-- Page Contents -->
+    <div class="pusher">
+        <!-- <div class="ui inverted vertical masthead center aligned segment"> -->
+        <div class="ui inverted vertical center aligned segment">
+
+            <div class="ui container">
+                <div class="ui large secondary inverted pointing menu">
+                    <a class="toc item">
+                        <i class="sidebar icon"></i>
+                    </a>
+                    <a class="item" onclick="goPrincipalView()">Principal</a>
+                    <!-- <a class="item" onclick="goRequestsView()">Solicitudes</a>
+                    <a class="item" onclick="goUsersView()">Usuarios</a> -->
+                    <label class="right item"></label>
+                    <label class="right item"></label>
+                    <label class="right item"></label>
+                    <label class="right item"></label>
+                    <div id="username_label">
+                        <!-- <label class="right item">Nombre del usuario</label> -->
+                    </div>
+                    <div class="right item">
+                        <!-- <a class="ui inverted button">Log in</a> -->
+                        <a class="ui inverted button">Cerrar sesión</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="ui text container">
+                <h1 class="ui inverted header">
+                    Editando perfil
+                </h1>
+                <!-- <h2>Do whatever you want when you want to.</h2> -->
+            </div>
+
+        </div>
+
+        <div class="ui vertical stripe">
+            <div class="ui middle aligned stackable grid container">
+                <div class="row">
+                    <div class="four wide column"></div>
+                    <div class="eight wide column">
+                        <h3>Mis datos:</h3>
+                        <form class="ui form">
+                            <div class="field" hidden>
+                                <label>Id</label>
+                                <input type="text" id="id_user" name="id_user" placeholder="Id" disabled>
+                            </div>
+                            <div class="field">
+                                <label>Nombre</label>
+                                <input type="text" id="name" name="name" placeholder="Nombre">
+                            </div>
+                            <div class="field">
+                                <label>Apellido</label>
+                                <input type="text" id="lastname" name="lastname" placeholder="Apellido">
+                            </div>
+                            <div class="field">
+                                <label>Nombre de usuario</label>
+                                <input type="text" id="username" name="username" placeholder="Nombre de usuario">
+                            </div>
+                            <div class="field">
+                                <label>Contraseña</label>
+                                <input type="password" id="password" name="password" placeholder="Contraseña">
+                            </div>
+                            <div class="field">
+                                <label>Confirmar contraseña</label>
+                                <input type="password" id="confirm_password" name="confirm_password" placeholder="Confirmar contraseña">
+                            </div>
+                            <div class="field" hidden>
+                                <label>Tipo de usuario</label>
+                                <input type="text" id="user_type" name="user_type" placeholder="Tipo de usuario" disabled>
+                            </div>
+                            <div class="position_right">
+                                <button class="large ui teal button" type="button" onclick="edit()">Editar</button>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="four wide column"></div>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="ui inverted vertical footer segment">
+            <div class="ui container">
+                <div class="ui stackable inverted divided equal height stackable grid">
+                    <div class="three wide column">
+                        <h4 class="ui inverted header">About</h4>
+                        <div class="ui inverted link list">
+                            <a href="#" class="item">Sitemap</a>
+                            <a href="#" class="item">Contact Us</a>
+                            <a href="#" class="item">Religious Ceremonies</a>
+                            <a href="#" class="item">Gazebo Plans</a>
+                        </div>
+                    </div>
+                    <div class="three wide column">
+                        <h4 class="ui inverted header">Services</h4>
+                        <div class="ui inverted link list">
+                            <a href="#" class="item">Banana Pre-Order</a>
+                            <a href="#" class="item">DNA FAQ</a>
+                            <a href="#" class="item">How To Access</a>
+                            <a href="#" class="item">Favorite X-Men</a>
+                        </div>
+                    </div>
+                    <div class="seven wide column">
+                        <h4 class="ui inverted header">Footer Header</h4>
+                        <p>Extra space for a call to action inside the footer that could help re-engage users.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</body>
+
+<script>
+    function init() {
+
+        var id_user = sessionStorage.session_id
+        console.log(id_user)
+
+        fetch(`http://localhost:3000/users/${id_user}`, {
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
+            .then(response => response.json())
+            .catch(error => {
+                console.log(error)
+            })
+            .then(res => {
+                console.log(res)
+                for (var i in res) {
+                    document.querySelector('#name').value = res[i].name
+                    document.querySelector('#lastname').value = res[i].lastname
+                    document.querySelector('#username').value = res[i].username
+                    document.querySelector('#password').value = res[i].password
+                    document.querySelector('#confirm_password').value = res[i].password
+
+                    document.querySelector('#id_user').value = res[i].id
+                    document.querySelector('#user_type').value = res[i].user_type
+                }
+            })
+
+        // Para el nombre de usuario
+        var session_username = sessionStorage.session_username
+            //console.log(session_username)
+        var contenidoUsername = document.querySelector('#username_label')
+        contenidoUsername.innerHTML = ""
+
+        contenidoUsername.innerHTML =
+            `
+                <a class="active right item" onclick="profile()">${session_username}</a>
+            `
+    }
+
+    function edit() {
+        var session_username = sessionStorage.session_username
+            // var id_song = sessionStorage.id_song_edit;
+            // console.log(id_song);
+
+        var name = document.querySelector('#name').value
+        var lastname = document.querySelector('#lastname').value
+        var username = document.querySelector('#username').value
+        var password = document.querySelector('#password').value
+        var confirm_password = document.querySelector('#confirm_password').value
+
+        var id_user = document.querySelector('#id_user').value
+        var user_type = document.querySelector('#user_type').value
+
+        if (session_username == username) {
+
+            if (password != confirm_password) {
+                swal("¡Ocurrio un error!", "¡La contraseña de confirmación no coincide!", "error");
+            } else if (password == confirm_password) {
+
+                var data = {
+                    'id': parseInt(id_user, 10),
+                    'name': name,
+                    'lastname': lastname,
+                    'username': username,
+                    'password': password,
+                    'user_type': parseInt(user_type, 10)
+                }
+
+                console.log(data);
+                fetch(`http://localhost:3000/users/${id_user}`, {
+                        method: 'PUT',
+                        body: JSON.stringify(data),
+                        headers: {
+                            'Content-Type': 'application/json'
+                        }
+
+                    }).then(res => res.json())
+                    .catch(error => {
+                        console.error('Error:', error)
+                        alert("Ocurrio un error al consumir la API, revise la consola")
+                    })
+                    .then(response => {
+                        console.log('Success:', response);
+                        //alert(response.message)
+                        //swal("¡Editado con éxito!", "¡Canción editada!", "success");
+                        swal("¡Editado con éxito!", "Usuario editado: " + username, "success")
+                            .then((value) => {
+                                location.href = "./profileClientView.html"
+
+                                sessionStorage.setItem("session_id", id_user)
+                                sessionStorage.setItem("session_username", username)
+
+                                console.log(id_user)
+                                console.log(username)
+                            });
+                        //location.href = "./songsView.html"
+                    })
+
+            }
+
+        } else if (session_username != username) {
+
+            fetch(`http://localhost:3000/user_exists/${username}`, {
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                })
+                .then(response => response.json())
+                .catch(error => {
+                    console.log(error)
+                })
+                .then(res => {
+                    console.log(res)
+                    for (var i in res) {
+
+                        state = res[i]
+                        console.log("Nombre de usuario: " + username)
+                        console.log("Estado: " + state)
+
+                        if (state == 1) {
+                            swal("¡Ocurrio un error!", "¡El nombre de usuario ya esta tomado, utilice otro por favor!", "error");
+                        } else if (state == 0) {
+
+                            if (password != confirm_password) {
+                                swal("¡Ocurrio un error!", "¡La contraseña de confirmación no coincide!", "error");
+                            } else if (password == confirm_password) {
+
+                                var data = {
+                                    'id': parseInt(id_user, 10),
+                                    'name': name,
+                                    'lastname': lastname,
+                                    'username': username,
+                                    'password': password,
+                                    'user_type': parseInt(user_type, 10)
+                                }
+
+                                console.log(data);
+                                fetch(`http://localhost:3000/users/${id_user}`, {
+                                        method: 'PUT',
+                                        body: JSON.stringify(data),
+                                        headers: {
+                                            'Content-Type': 'application/json'
+                                        }
+
+                                    }).then(res => res.json())
+                                    .catch(error => {
+                                        console.error('Error:', error)
+                                        alert("Ocurrio un error al consumir la API, revise la consola")
+                                    })
+                                    .then(response => {
+                                        console.log('Success:', response);
+                                        //alert(response.message)
+                                        //swal("¡Editado con éxito!", "¡Canción editada!", "success");
+                                        swal("¡Editado con éxito!", "Usuario editado: " + username, "success")
+                                            .then((value) => {
+                                                location.href = "./profileClientView.html"
+
+                                                sessionStorage.setItem("session_id", id_user)
+                                                sessionStorage.setItem("session_username", username)
+
+                                                console.log(id_user)
+                                                console.log(username)
+                                            });
+                                        //location.href = "./songsView.html"
+                                    })
+
+                            }
+
+                        }
+                    }
+                })
+
+        }
+
+    }
+
+    function profile() {
+        location.href = "./profileClientView.html"
+    }
+
+    function goPrincipalView() {
+        location.href = "./songsView.html"
+    }
+
+    // function goRequestsView() {
+    //     location.href = "./request_songsView.html"
+    // }
+
+    // function goUsersView() {
+    //     location.href = "./usersView.html"
+    // }
+
+    init();
+</script>
+
+</html>
