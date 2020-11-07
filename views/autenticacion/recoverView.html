@@ -10,7 +10,8 @@
     <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
 
     <link rel="stylesheet" href="../../css/login.css">
-
+    <!-- Alertas -->
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 </head>
 
 <body>
@@ -28,10 +29,10 @@
                     <div class="field">
                         <div class="ui left icon input">
                             <i class="user icon"></i>
-                            <input type="text" name="username" placeholder="Nombre de usuario">
+                            <input type="text" id="username" name="username" placeholder="Nombre de usuario">
                         </div>
                     </div>
-                    <div class="ui fluid large teal submit button">Recuperar</div>
+                    <div class="ui fluid large teal button" onclick="recover()">Recuperar</div>
                 </div>
 
                 <div class="ui error message"></div>
@@ -41,5 +42,66 @@
     </div>
 
 </body>
+
+<script>
+    function recover() {
+
+        var username = document.querySelector('#username').value
+
+        if (username == "") {
+            console.log("username vacio: " + username);
+        } else if (username != "") {
+            console.log("username con datos: " + username);
+
+            fetch(`http://localhost:3000/user_exists/${username}`, {
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                })
+                .then(response => response.json())
+                .catch(error => {
+                    console.log(error)
+                })
+                .then(res => {
+                    console.log(res)
+                    for (var i in res) {
+
+                        state = res[i]
+                        console.log("Nombre de usuario: " + username)
+                        console.log("Estado: " + state)
+
+                        if (state == 0) {
+                            swal("¡Ocurrio un error!", "¡El nombre de usuario no existe, utilice otro por favor!", "error");
+                        } else if (state == 1) {
+
+                            fetch(`http://localhost:3000/users_recover/${username}`, {
+                                    headers: {
+                                        'Content-Type': 'application/json'
+                                    }
+                                })
+                                .then(response => response.json())
+                                .catch(error => {
+                                    console.log(error)
+                                })
+                                .then(res => {
+                                    console.log(res)
+                                    console.log(res.user_password)
+                                    password = res.user_password
+
+                                    // Alerta
+                                    swal("¡Usuario encontrado!  -  " + username, "La contraseña es: " + password, "success")
+                                        .then((value) => {
+                                            location.href = "./loginView.html"
+                                        });
+                                })
+
+                        }
+                    }
+                })
+
+        }
+
+    }
+</script>
 
 </html>

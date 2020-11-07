@@ -46,11 +46,11 @@
             </form>
 
             <div class="ui message">
-                ¿Olvidaste tu contraseña? <a onclick="recover()">Recuperala</a>
+                ¿Olvidaste tu contraseña? <a onclick="recover()"> Recuperala</a>
             </div>
 
             <div class="ui message">
-                ¿Eres nuevo? <a onclick="register()">Registrate</a>
+                ¿Eres nuevo? <a onclick="register()"> Registrate</a>
             </div>
         </div>
     </div>
@@ -121,14 +121,14 @@
 
                                     if (res[i].user_type == 1) {
                                         // Administrador
-                                        swal("Administrador loggeado!", "¡Bienvenido! " + res[i].username, "success")
+                                        swal("¡Administrador loggeado!", "¡Bienvenido! " + res[i].username, "success")
                                             .then((value) => {
                                                 location.href = "../administration/songsView.html"
                                             });
 
                                     } else if (res[i].user_type == 2) {
                                         // Usuario
-                                        swal("Usuario loggeado!", "¡Bienvenido! " + res[i].username, "success")
+                                        swal("¡Usuario loggeado!", "¡Bienvenido! " + res[i].username, "success")
                                             .then((value) => {
                                                 location.href = "../homeView.html"
                                             });
