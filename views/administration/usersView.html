@@ -264,8 +264,10 @@
     }
 
     function report() {
+        var date = new Date();
+
         var pdf = new jsPDF();
-        pdf.text(20, 20, "Reporte - Usuarios");
+        pdf.text(20, 20, "Reporte - Usuarios                                                               " + date.toLocaleDateString());
 
         // var columns = ["Id", "Nombre", "Email", "Pais"];
         // var data0 = [
@@ -276,8 +278,6 @@
 
         var columns = ["No.", "Nombre de usuario", "Nombre", "Apellido", "Tipo de usuario"];
         var data = [];
-
-        var date = new Date();
 
         fetch('http://localhost:3000/users')
             .then(response => response.json())

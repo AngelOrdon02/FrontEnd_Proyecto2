@@ -261,7 +261,7 @@
                 //Agregamos las configuraciones y le decimos
                 //Quien es el delimitador y que hara luego de leer el archivo
                 //En este caso usamos delimitador "," y que haga el metodo GuardarCanciones
-                delimiter: ",",
+                delimiter: ";",
                 complete: await saveSongs,
             },
             //Esto es lo que hara antes de leer el archivo
@@ -387,8 +387,10 @@
     }
 
     function report() {
+        var date = new Date();
+
         var pdf = new jsPDF();
-        pdf.text(20, 20, "Reporte - Canciones activas");
+        pdf.text(20, 20, "Reporte - Canciones activas                                               " + date.toLocaleDateString());
 
         // var columns = ["Id", "Nombre", "Email", "Pais"];
         // var data0 = [
@@ -399,8 +401,6 @@
 
         var columns = ["No.", "Nombre", "Artista", "Álbum", "Fecha"];
         var data = [];
-
-        var date = new Date();
 
         fetch('http://localhost:3000/songs')
             .then(response => response.json())
