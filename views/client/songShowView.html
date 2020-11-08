@@ -91,34 +91,9 @@
                 <div class="row">
                     <div class="sixteen wide column">
                         <h3>Datos de la canción:</h3>
-                        <div class="ui grid container" id="Cuerpo">
-                            <div class="row">
-                                <div class="four wide column">
-                                    <img class="img_show_song" src="https://images-na.ssl-images-amazon.com/images/I/61AobF8AZLL._SY355_.jpg">
-                                </div>
-                                <div class="four wide column">
-                                    <div class="ui large list">
-                                        <div class="item">
-                                            <div class="header">Nombre</div>
-                                            asdfsdf
-                                        </div>
-                                        <div class="item">
-                                            <div class="header">Artista</div>
-                                            fasdfsdfs
-                                        </div>
-                                        <div class="item">
-                                            <div class="header">Álbum</div>
-                                            asdfdsfsa
-                                        </div>
-                                        <div class="item">
-                                            <div class="header">Fecha</div>
-                                            asdfdsf
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="eight wide column">
-                                    <iframe src="https://www.youtube.com/embed/l9PNhbahP58" width="450" height="250" style="border:none;" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
-                                </div>
+                        <div class="ui grid container">
+                            <div class="row" id="Cuerpo">
+                                <!-- Codigo obtenido al consumir api -->
                             </div>
 
                             <div class="ui horizontal divider">
@@ -130,37 +105,27 @@
                                     <table class="ui fixed black table">
                                         <thead>
                                             <tr>
-                                                <th>Food</th>
-                                                <th>Calories</th>
-                                                <th>Protein</th>
+                                                <th class="centered">Fecha</th>
+                                                <th class="centered">Nombre de usuario</th>
+                                                <th class="centered">Descripción</th>
                                             </tr>
                                         </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td>Apples</td>
-                                                <td>200</td>
-                                                <td>0g</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Orange</td>
-                                                <td>310</td>
-                                                <td>0g</td>
-                                            </tr>
+                                        <tbody id="CuerpoTabla">
                                         </tbody>
                                     </table>
                                 </div>
                                 <div class="eight wide column">
                                     <form class="ui form">
-                                        <div class="field" hidden>
+                                        <!-- <div class="field" hidden>
                                             <label>First Name</label>
                                             <input type="text" name="first-name" placeholder="First Name">
-                                        </div>
+                                        </div> -->
                                         <div class="field">
-                                            <label>Escribe tu comentario:</label>
-                                            <textarea rows="2"></textarea>
+                                            <label>Deja tu comentario:</label>
+                                            <textarea rows="2" id="description" placeholder="Escribe lo que pienses"></textarea>
                                         </div>
                                         <div class="position_right">
-                                            <button class="ui green button" type="button">Comentar</button>
+                                            <button class="ui green button" type="button" onclick="new_comment()">Comentar</button>
                                         </div>
                                     </form>
                                 </div>
@@ -228,21 +193,35 @@
             .then(res => {
                 console.log(res)
                 for (var i in res) {
-                    contenido.innerHTML +=
+                    contenido.innerHTML =
                         `
-                    
+                        <div class="four wide column">
+                            <img class="img_show_song" src="${res[i].image}">
+                        </div>
+                        <div class="four wide column">
+                            <div class="ui large list">
+                                <div class="item">
+                                    <div class="header">Nombre</div>
+                                    ${res[i].name}
+                                </div>
+                                <div class="item">
+                                    <div class="header">Artista</div>
+                                    ${res[i].artist}
+                                </div>
+                                <div class="item">
+                                    <div class="header">Álbum</div>
+                                    ${res[i].album}
+                                </div>
+                                <div class="item">
+                                    <div class="header">Fecha</div>
+                                    ${res[i].date}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="eight wide column">
+                            <iframe src="${res[i].link_youtube}" width="450" height="250" style="border:none;" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+                        </div>
                     `
-
-                    // document.querySelector('#name').value = res[i].name
-                    // document.querySelector('#artist').value = res[i].artist
-                    // document.querySelector('#album').value = res[i].album
-                    // document.querySelector('#date').value = res[i].date
-                    // document.querySelector('#image').value = res[i].image
-                    // document.querySelector('#link_spotify').value = res[i].link_spotify
-                    // document.querySelector('#link_youtube').value = res[i].link_youtube
-
-                    // document.querySelector('#id_song').value = res[i].id
-                    // document.querySelector('#state').value = res[i].state
                 }
 
             })
@@ -260,6 +239,94 @@
 
     }
 
+    function tableComments() {
+        var id_song = sessionStorage.id_song_show
+        console.log(id_song)
+
+        var contenido = document.querySelector('#CuerpoTabla')
+        contenido.innerHTML = ""
+        fetch(`http://localhost:3000/comments_song/${id_song}`, {
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
+            .then(response => response.json())
+            .catch(error => {
+                console.log(error)
+            })
+            .then(res => {
+                //Recorriendo nuestro res e incrementando el innerHTML de nuestro elemento
+                //Identificado como contenido
+                console.log(res)
+                for (var i in res) {
+                    for (var j in res[i]) {
+                        contenido.innerHTML +=
+                            `<tr>
+                        <th class="centered">${res[i][j].date}</th>
+                        <th class="centered">${res[i][j].username_user}</th>
+                        <th class="centered">${res[i][j].description}</th>
+                        </tr>`
+                    }
+                }
+            })
+    }
+
+    function new_comment() {
+        var session_id = sessionStorage.session_id
+        var session_username = sessionStorage.session_username
+        var id_song = sessionStorage.id_song_show
+
+        console.log(session_id)
+        console.log(session_username)
+        console.log(id_song)
+
+        var date = new Date();
+
+        var description = document.querySelector('#description').value
+        var date_comment = date.toLocaleDateString()
+
+        if (description == "") {
+            swal("¡Ocurrio un error!", "¡Escriba algo en su comentario, por favor!", "error");
+        } else if (description != "") {
+
+            var data = {
+                'id_user': parseInt(session_id, 10),
+                'username_user': session_username,
+                'id_song': parseInt(id_song, 10),
+                'date': date_comment,
+                'description': description
+            }
+
+            console.log(data);
+            fetch('http://localhost:3000/comments', {
+                    method: 'POST',
+                    body: JSON.stringify(data),
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+
+                }).then(res => res.json())
+                .catch(error => {
+                    console.error('Error:', error)
+                        //alert("Ocurrio un error al consumir la API, revise la consola")
+                    swal("¡Ocurrio un error!", "¡No se pudo crear el comentario!", "error");
+                })
+                .then(response => {
+                    console.log('Success:', response);
+                    //alert(response.message)
+                    //swal("¡Editado con éxito!", "¡Canción editada!", "success");
+                    swal("¡Creado con éxito!", "Comentario guardado", "success")
+                        .then((value) => {
+                            //location.href = "./usersView.html"
+                            document.querySelector('#description').value = ""
+                            tableComments();
+                        });
+                    //location.href = "./songsView.html"
+                })
+
+        }
+    }
+
     function profile() {
         location.href = "./profileClientView.html"
     }
@@ -268,7 +335,8 @@
         location.href = "./songsView.html"
     }
 
-    //init();
+    init();
+    tableComments();
 </script>
 
 </html>
