@@ -5,7 +5,7 @@
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
-    <title>Principal - Usuario</title>
+    <title>Detalle de canción - Usuario</title>
 
     <script src="https://code.jquery.com/jquery-3.1.1.min.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
@@ -79,7 +79,7 @@
 
             <div class="ui text container">
                 <h1 class="ui inverted header">
-                    Canciones disponibles
+                    Detalle de canción
                 </h1>
                 <!-- <h2>Do whatever you want when you want to.</h2> -->
             </div>
@@ -90,8 +90,81 @@
             <div class="ui middle aligned stackable grid container">
                 <div class="row">
                     <div class="sixteen wide column">
-                        <!-- <h3>Titulo</h3> -->
+                        <h3>Datos de la canción:</h3>
                         <div class="ui grid container" id="Cuerpo">
+                            <div class="row">
+                                <div class="four wide column">
+                                    <img class="img_show_song" src="https://images-na.ssl-images-amazon.com/images/I/61AobF8AZLL._SY355_.jpg">
+                                </div>
+                                <div class="four wide column">
+                                    <div class="ui large list">
+                                        <div class="item">
+                                            <div class="header">Nombre</div>
+                                            asdfsdf
+                                        </div>
+                                        <div class="item">
+                                            <div class="header">Artista</div>
+                                            fasdfsdfs
+                                        </div>
+                                        <div class="item">
+                                            <div class="header">Álbum</div>
+                                            asdfdsfsa
+                                        </div>
+                                        <div class="item">
+                                            <div class="header">Fecha</div>
+                                            asdfdsf
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="eight wide column">
+                                    <iframe src="https://www.youtube.com/embed/l9PNhbahP58" width="450" height="250" style="border:none;" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+                                </div>
+                            </div>
+
+                            <div class="ui horizontal divider">
+                                Comentarios
+                            </div>
+
+                            <div class="row">
+                                <div class="eight wide column">
+                                    <table class="ui fixed black table">
+                                        <thead>
+                                            <tr>
+                                                <th>Food</th>
+                                                <th>Calories</th>
+                                                <th>Protein</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>Apples</td>
+                                                <td>200</td>
+                                                <td>0g</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Orange</td>
+                                                <td>310</td>
+                                                <td>0g</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="eight wide column">
+                                    <form class="ui form">
+                                        <div class="field" hidden>
+                                            <label>First Name</label>
+                                            <input type="text" name="first-name" placeholder="First Name">
+                                        </div>
+                                        <div class="field">
+                                            <label>Escribe tu comentario:</label>
+                                            <textarea rows="2"></textarea>
+                                        </div>
+                                        <div class="position_right">
+                                            <button class="ui green button" type="button">Comentar</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -131,47 +204,47 @@
     </div>
 
 </body>
+
+
+<script src="https://apis.google.com/js/client.js?onload=checkAuth"></script>
 <script>
     function init() {
+
+        var id_song = sessionStorage.id_song_show
+        console.log(id_song)
+
         var contenido = document.querySelector('#Cuerpo')
         contenido.innerHTML = ""
-        fetch('http://localhost:3000/songs')
+
+        fetch(`http://localhost:3000/songs/${id_song}`, {
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
             .then(response => response.json())
             .catch(error => {
                 console.log(error)
             })
             .then(res => {
-                //Recorriendo nuestro res e incrementando el innerHTML de nuestro elemento
-                //Identificado como contenido
                 console.log(res)
                 for (var i in res) {
-                    for (var j in res[i]) {
-                        if (res[i][j].state == 1) {
-                            // console.log(res[i][j])
-                            // console.log(res[i])
-                            contenido.innerHTML +=
-                                `
-                                <div class="four wide column">
-                                    <div class="ui card">
-                                        <div class="image">
-                                            <iframe src="${res[i][j].link_spotify}" width="100%" height="300" style="border:none;" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
-                                        </div>
-                                        <div class="extra content">
-                                            <a onclick="show_song(${res[i][j].id})">
-                                                <i class="eye icon"></i> Ver detalles
-                                            </a>
-                                        </div>
-                                        <div class="extra content">
-                                            <a onclick="">
-                                                <i class="music icon"></i> Agregar a mi playlist
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>
-                                `
-                        }
-                    }
+                    contenido.innerHTML +=
+                        `
+                    
+                    `
+
+                    // document.querySelector('#name').value = res[i].name
+                    // document.querySelector('#artist').value = res[i].artist
+                    // document.querySelector('#album').value = res[i].album
+                    // document.querySelector('#date').value = res[i].date
+                    // document.querySelector('#image').value = res[i].image
+                    // document.querySelector('#link_spotify').value = res[i].link_spotify
+                    // document.querySelector('#link_youtube').value = res[i].link_youtube
+
+                    // document.querySelector('#id_song').value = res[i].id
+                    // document.querySelector('#state').value = res[i].state
                 }
+
             })
 
         // Para el nombre de usuario
@@ -182,16 +255,9 @@
 
         contenidoUsername.innerHTML =
             `
-                <a class="right item" onclick="profile()">${session_username}</a>
-            `
-    }
+        <a class="right item" onclick="profile()">${session_username}</a>
+    `
 
-    function show_song(id) {
-        console.log("song: " + id);
-
-        var id_song = id
-        sessionStorage.setItem("id_song_show", id_song)
-        location.href = "./songShowView.html"
     }
 
     function profile() {
@@ -202,7 +268,7 @@
         location.href = "./songsView.html"
     }
 
-    init();
+    //init();
 </script>
 
 </html>
