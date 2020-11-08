@@ -5,75 +5,45 @@
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
-    <title>Principal</title>
+    <title>MIDNIGHT</title>
 
     <script src="https://code.jquery.com/jquery-3.1.1.min.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
     <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
 
+    <!-- Icono -->
+    <link rel="icon" type="image/x-icon" href="https://3.bp.blogspot.com/-2kXGuGA1ON0/Wv3plRrEPjI/AAAAAAAAAOE/5dJCBrXXLR01bFtoTyBZ1btCcMLBX33rQCLcBGAs/s320/Logo%2BWOS%2Bcol%2B%25281%2529.png">
+
     <link rel="stylesheet" href="../css/home.css">
+    <link rel="stylesheet" href="../css/style.css">
 
     <script type="text/javascript" src="../scripts/script.js"></script>
 
 </head>
 
 <body>
-
-    <!-- Following Menu -->
-    <div class="ui large top fixed hidden menu">
-        <div class="ui container">
-            <a class="active item">Home</a>
-            <a class="item">Work</a>
-            <a class="item">Company</a>
-            <a class="item">Careers</a>
-            <div class="right menu">
-                <div class="item">
-                    <a class="ui button">Log in</a>
-                </div>
-                <div class="item">
-                    <a class="ui primary button">Sign Up</a>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Sidebar Menu -->
-    <div class="ui vertical inverted sidebar menu">
-        <a class="active item">Home</a>
-        <a class="item">Work</a>
-        <a class="item">Company</a>
-        <a class="item">Careers</a>
-        <a class="item">Login</a>
-        <a class="item">Signup</a>
-    </div>
-
-
     <!-- Page Contents -->
     <div class="pusher">
-        <!-- <div class="ui inverted vertical masthead center aligned segment"> -->
-        <div class="ui inverted vertical center aligned segment">
+        <div class="ui inverted vertical masthead center aligned segment" id="fondo_midnight">
+            <!-- <div class="ui inverted vertical center aligned segment"> -->
 
             <div class="ui container">
                 <div class="ui large secondary inverted pointing menu">
-                    <a class="toc item">
-                        <i class="sidebar icon"></i>
+                    <a class="header item">
+                        <img class="logo" src="https://3.bp.blogspot.com/-2kXGuGA1ON0/Wv3plRrEPjI/AAAAAAAAAOE/5dJCBrXXLR01bFtoTyBZ1btCcMLBX33rQCLcBGAs/s320/Logo%2BWOS%2Bcol%2B%25281%2529.png"> Midnight
                     </a>
-                    <a class="active item">Home</a>
-                    <a class="item">Work</a>
-                    <a class="item">Company</a>
-                    <a class="item">Careers</a>
                     <div class="right item">
                         <!-- <a class="ui inverted button">Log in</a> -->
-                        <a class="ui inverted button">Sign Up</a>
+                        <a class="ui inverted button" onclick="login()">Login</a>
                     </div>
                 </div>
             </div>
 
             <div class="ui text container">
                 <h1 class="ui inverted header">
-                    Imagine-a-Company
+                    MIDNIGHT
                 </h1>
-                <h2>Do whatever you want when you want to.</h2>
+                <h2>Midnight</h2>
             </div>
 
         </div>
@@ -81,106 +51,80 @@
         <div class="ui vertical stripe">
             <div class="ui middle aligned stackable grid container">
                 <div class="row">
-                    <div class="one wide column"></div>
-                    <div class="fourteen wide column">
-                        <h3>Titulo</h3>
+                    <div class="sixteen wide column">
+                        <!-- <h3>Datos de la canción:</h3> -->
                         <div class="ui grid container">
-                            <div class="four wide column">
-                                <div class="ui card">
-                                    <div class="image">
-                                        <img src="https://semantic-ui.com/images/avatar2/large/kristy.png">
-                                    </div>
-                                    <div class="content">
-                                        <a class="header">Kristy</a>
-                                        <div class="meta">
-                                            <span class="date">Joined in 2013</span>
+
+                            <div class="row">
+                                <div class="eight wide column">
+                                    <h3 class="ui header">Midnight</h3>
+                                    <p>
+                                        El nombre <b>midnight</b> nos da a entender que de día como de noche oímos algo, ya sea algo ruidoso o algo melódico entonces siempre estamos conectados a cualquier sonido que nos transmita algún significado desde
+                                        información hasta emociones.
+                                    </p>
+                                </div>
+                                <div class="eight wide column">
+                                    <div class="ui grid container">
+                                        <div class="row">
+                                            <div class="eight wide column">
+                                                <h3 class="ui header">Sol y luna</h3>
+                                                <p>
+                                                    El logo representa el día por medio del sol y la noche por medio de la luna, dando a entender que cualquier momento del día es un buen momento para escuchar música.
+                                                </p>
+                                            </div>
+                                            <div class="eight wide column">
+                                                <div class="image centered">
+                                                    <img class="img_logo" src="https://3.bp.blogspot.com/-2kXGuGA1ON0/Wv3plRrEPjI/AAAAAAAAAOE/5dJCBrXXLR01bFtoTyBZ1btCcMLBX33rQCLcBGAs/s320/Logo%2BWOS%2Bcol%2B%25281%2529.png">
+                                                </div>
+                                            </div>
                                         </div>
-                                        <div class="description">
-                                            Kristy is an art director living in New York.
-                                        </div>
-                                    </div>
-                                    <div class="extra content">
-                                        <a>
-                                            <i class="user icon"></i> 22 Friends
-                                        </a>
                                     </div>
                                 </div>
                             </div>
 
-                            <div class="four wide column">
-                                <div class="ui card">
-                                    <div class="image">
-                                        <img src="https://semantic-ui.com/images/avatar2/large/kristy.png">
-                                    </div>
-                                    <div class="content">
-                                        <a class="header">Kristy</a>
-                                        <div class="meta">
-                                            <span class="date">Joined in 2013</span>
+                            <div class="ui horizontal divider">
+                                ¡Canción más reciente! 🔥🔥🔥
+                            </div>
+
+                            <div class="row" id="Cuerpo">
+                                <!-- Codigo obtenido al consumir api -->
+                            </div>
+
+                            <div class="row" id="Cuerpo_2">
+                                <!-- Codigo obtenido al consumir api -->
+                            </div>
+
+                            <div class="ui horizontal divider">
+                                Información
+                            </div>
+
+                            <div class="row">
+                                <div class="eight wide column">
+                                    <h3 class="ui header">Acerca de</h3>
+                                    <p>
+                                        Midnight es una aplicación web que busca compartir el arte de la música a todas las personas.
+                                    </p>
+                                </div>
+                                <div class="eight wide column">
+                                    <h3 class="ui header">Contactenos</h3>
+                                    <div class="ui large list">
+                                        <div class="item">
+                                            <div class="header">Programador</div>
+                                            Angel Ordón
                                         </div>
-                                        <div class="description">
-                                            Kristy is an art director living in New York.
+                                        <div class="item">
+                                            <div class="header">GitHub</div>
+                                            <a href="https://github.com/AngelOrdon02">AngelOrdon02</a>
                                         </div>
-                                    </div>
-                                    <div class="extra content">
-                                        <a>
-                                            <i class="user icon"></i> 22 Friends
-                                        </a>
+                                        <div class="item">
+                                            <div class="header">Ubicación</div>
+                                            Ciudad de Guatemala, Guatemala
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-
-                            <div class="four wide column">
-                                <div class="ui card">
-                                    <div class="image">
-                                        <img src="https://semantic-ui.com/images/avatar2/large/kristy.png">
-                                    </div>
-                                    <div class="content">
-                                        <a class="header">Kristy</a>
-                                        <div class="meta">
-                                            <span class="date">Joined in 2013</span>
-                                        </div>
-                                        <div class="description">
-                                            Kristy is an art director living in New York.
-                                        </div>
-                                    </div>
-                                    <div class="extra content">
-                                        <a>
-                                            <i class="user icon"></i> 22 Friends
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="four wide column">
-                                <div class="ui card">
-                                    <div class="image">
-                                        <img src="https://semantic-ui.com/images/avatar2/large/kristy.png">
-                                    </div>
-                                    <div class="content">
-                                        <a class="header">Kristy</a>
-                                        <div class="meta">
-                                            <span class="date">Joined in 2013</span>
-                                        </div>
-                                        <div class="description">
-                                            Kristy is an art director living in New York.
-                                        </div>
-                                    </div>
-                                    <div class="extra content">
-                                        <a>
-                                            <i class="user icon"></i> 22 Friends
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-
-
-                            <!-- <div class="four wide column">asdf</div>
-                            <div class="four wide column">asdf</div>
-                            <div class="four wide column">asdf</div>
-                            <div class="four wide column">asdf</div> -->
                         </div>
                     </div>
-                    <div class="one wide column"></div>
                 </div>
 
             </div>
@@ -218,5 +162,76 @@
     </div>
 
 </body>
+
+<script>
+    function init() {
+
+        // var id_song = sessionStorage.id_song_show
+        // console.log(id_song)
+
+        var contenido = document.querySelector('#Cuerpo')
+        contenido.innerHTML = ""
+
+        var contenido_2 = document.querySelector('#Cuerpo_2')
+        contenido_2.innerHTML = ""
+
+        fetch(`http://localhost:3000/songs/last`, {
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
+            .then(response => response.json())
+            .catch(error => {
+                console.log(error)
+            })
+            .then(res => {
+                console.log(res)
+                for (var i in res) {
+                    contenido.innerHTML =
+                        `
+                        <div class="four wide column">
+                            <img class="img_show_song" src="${res[i].image}">
+                        </div>
+                        <div class="four wide column">
+                            <div class="ui large list">
+                                <div class="item">
+                                    <div class="header">Nombre</div>
+                                    ${res[i].name}
+                                </div>
+                                <div class="item">
+                                    <div class="header">Artista</div>
+                                    ${res[i].artist}
+                                </div>
+                                <div class="item">
+                                    <div class="header">Álbum</div>
+                                    ${res[i].album}
+                                </div>
+                                <div class="item">
+                                    <div class="header">Fecha</div>
+                                    ${res[i].date}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="eight wide column">
+                            <iframe src="${res[i].link_youtube}" width="450" height="250" style="border:none;" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+                        </div>
+                    `
+
+                    contenido_2.innerHTML =
+                        `
+                        <div class="four wide column"></div>
+                        <div class="eight wide column">
+                            <iframe src="${res[i].link_spotify}" width="100%" height="300" style="border:none;" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
+                        </div>
+                        <div class="four wide column"></div>
+                    `
+                }
+
+            })
+
+    }
+
+    init();
+</script>
 
 </html>
