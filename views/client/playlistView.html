@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+    <title>Mi playlist - Usuario</title>
+
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
+
+    <!-- Icono -->
+    <link rel="icon" type="image/x-icon" href="https://3.bp.blogspot.com/-2kXGuGA1ON0/Wv3plRrEPjI/AAAAAAAAAOE/5dJCBrXXLR01bFtoTyBZ1btCcMLBX33rQCLcBGAs/s320/Logo%2BWOS%2Bcol%2B%25281%2529.png">
+
+    <link rel="stylesheet" href="../../css/style.css">
+    <link rel="stylesheet" href="../../css/home.css">
+
+    <script type="text/javascript" src="../../scripts/script.js"></script>
+    <!-- Alertas -->
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+</head>
+
+<body>
+
+    <!-- Following Menu -->
+    <div class="ui large top fixed hidden menu">
+        <div class="ui container">
+            <a class="active item">Home</a>
+            <a class="item">Work</a>
+            <a class="item">Company</a>
+            <a class="item">Careers</a>
+            <div class="right menu">
+                <div class="item">
+                    <a class="ui button">Log in</a>
+                </div>
+                <div class="item">
+                    <a class="ui primary button">Sign Up</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Sidebar Menu -->
+    <div class="ui vertical inverted sidebar menu">
+        <a class="active item">Home</a>
+        <a class="item">Work</a>
+        <a class="item">Company</a>
+        <a class="item">Careers</a>
+        <a class="item">Login</a>
+        <a class="item">Signup</a>
+    </div>
+
+
+    <!-- Page Contents -->
+    <div class="pusher">
+        <!-- <div class="ui inverted vertical masthead center aligned segment"> -->
+        <div class="ui inverted vertical center aligned segment">
+
+            <div class="ui container">
+                <div class="ui large secondary inverted pointing menu">
+                    <a class="toc item">
+                        <i class="sidebar icon"></i>
+                    </a>
+                    <a class="item" onclick="goPrincipalView()">Principal</a>
+                    <a class="active item" onclick="goPlaylistView()">Mi playlist</a>
+                    <!-- <a class="item" onclick="goUsersView()">Usuarios</a> -->
+                    <label class="right item"></label>
+                    <label class="right item"></label>
+                    <label class="right item"></label>
+                    <label class="right item"></label>
+                    <div id="username_label">
+                        <!-- <label class="right item">Nombre del usuario</label> -->
+                    </div>
+                    <div class="right item">
+                        <!-- <a class="ui inverted button">Log in</a> -->
+                        <a class="ui inverted button" onclick="logout()">Cerrar sesión</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="ui text container">
+                <h1 class="ui inverted header">
+                    Mi playlist
+                </h1>
+                <!-- <h2>Do whatever you want when you want to.</h2> -->
+            </div>
+
+        </div>
+
+        <div class="ui vertical stripe">
+            <div class="ui middle aligned stackable grid container">
+                <div class="row">
+                    <div class="sixteen wide column">
+                        <!-- <h3>Titulo</h3> -->
+                        <div class="ui grid container" id="Cuerpo">
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="ui inverted vertical footer segment">
+            <div class="ui container">
+                <div class="ui stackable inverted divided equal height stackable grid">
+                    <div class="three wide column">
+                        <h4 class="ui inverted header">USAC</h4>
+                    </div>
+                    <div class="three wide column">
+                        <h4 class="ui inverted header">IPC 1 "D"</h4>
+                    </div>
+                    <div class="seven wide column">
+                        <h4 class="ui inverted header">Proyecto 2</h4>
+                        <p>Angel Geovanny Ordon Colchaj - 201905741</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</body>
+<script>
+    function init() {
+        var id_user = sessionStorage.session_id
+        console.log(id_user)
+
+        var contenido = document.querySelector('#Cuerpo')
+        contenido.innerHTML = ""
+
+        fetch(`http://localhost:3000/playlists/${id_user}`, {
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
+            .then(response => response.json())
+            .catch(error => {
+                console.log(error)
+            })
+            .then(res => {
+                console.log(res)
+                for (var i in res) {
+                    // document.querySelector('#name').value = res[i].name
+                    // document.querySelector('#lastname').value = res[i].lastname
+                    // document.querySelector('#username').value = res[i].username
+                    // document.querySelector('#password').value = res[i].password
+
+                    // document.querySelector('#id_user').value = res[i].id
+                    // document.querySelector('#user_type').value = res[i].user_type
+
+                    if (id_user == res[i].id) {
+                        id_playlist = res[i].id
+                        fetch(`http://localhost:3000/playlist_song_id_playlist/${id_playlist}`, {
+                                headers: {
+                                    'Content-Type': 'application/json'
+                                }
+                            })
+                            .then(response => response.json())
+                            .catch(error => {
+                                console.log(error)
+                            })
+                            .then(res => {
+                                console.log(res)
+                                for (var i in res) {
+                                    for (var j in res[i]) {
+                                        console.log(res[i][j].id_song)
+
+                                        id_song = res[i][j].id_song
+                                        fetch(`http://localhost:3000/songs/${id_song}`, {
+                                                headers: {
+                                                    'Content-Type': 'application/json'
+                                                }
+                                            })
+                                            .then(response => response.json())
+                                            .catch(error => {
+                                                console.log(error)
+                                            })
+                                            .then(res => {
+                                                console.log(res)
+                                                for (var i in res) {
+                                                    if (res[i].state == 1) {
+                                                        // console.log(res[i][j])
+                                                        // console.log(res[i])
+                                                        console.log(res[i].name)
+                                                        contenido.innerHTML +=
+                                                            `
+                                                            <div class="four wide column">
+                                                                <div class="ui card">
+                                                                    <div class="image">
+                                                                        <iframe src="${res[i].link_spotify}" width="100%" height="300" style="border:none;" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
+                                                                    </div>
+                                                                    <div class="extra content">
+                                                                        <a onclick="show_song(${res[i].id})">
+                                                                            <i class="eye icon"></i> Ver detalles
+                                                                        </a>
+                                                                    </div>
+                                                                    <div class="extra content">
+                                                                        <a onclick="">
+                                                                            <i class="music icon"></i> Agregar a mi playlist
+                                                                        </a>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            `
+                                                    }
+                                                }
+                                            })
+                                    }
+                                }
+                            })
+                    }
+                }
+            })
+
+
+        // fetch('http://localhost:3000/songs')
+        //     .then(response => response.json())
+        //     .catch(error => {
+        //         console.log(error)
+        //     })
+        //     .then(res => {
+        //         //Recorriendo nuestro res e incrementando el innerHTML de nuestro elemento
+        //         //Identificado como contenido
+        //         console.log(res)
+        //         for (var i in res) {
+        //             for (var j in res[i]) {
+        //                 if (res[i][j].state == 1) {
+        //                     // console.log(res[i][j])
+        //                     // console.log(res[i])
+        //                     contenido.innerHTML +=
+        //                         `
+        //                         <div class="four wide column">
+        //                             <div class="ui card">
+        //                                 <div class="image">
+        //                                     <iframe src="${res[i][j].link_spotify}" width="100%" height="300" style="border:none;" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
+        //                                 </div>
+        //                                 <div class="extra content">
+        //                                     <a onclick="show_song(${res[i][j].id})">
+        //                                         <i class="eye icon"></i> Ver detalles
+        //                                     </a>
+        //                                 </div>
+        //                                 <div class="extra content">
+        //                                     <a onclick="">
+        //                                         <i class="music icon"></i> Agregar a mi playlist
+        //                                     </a>
+        //                                 </div>
+        //                             </div>
+        //                         </div>
+        //                         `
+        //                 }
+        //             }
+        //         }
+        //     })
+
+        // Para el nombre de usuario
+        var session_username = sessionStorage.session_username
+            //console.log(session_username)
+        var contenidoUsername = document.querySelector('#username_label')
+        contenidoUsername.innerHTML = ""
+
+        contenidoUsername.innerHTML =
+            `
+                <a class="right item" onclick="profile()">${session_username}</a>
+            `
+    }
+
+    function show_song(id) {
+        console.log("song: " + id);
+
+        var id_song = id
+        sessionStorage.setItem("id_song_show", id_song)
+        location.href = "./songShowView.html"
+    }
+
+    function profile() {
+        location.href = "./profileClientView.html"
+    }
+
+    function goPrincipalView() {
+        location.href = "./songsView.html"
+    }
+
+    function goPlaylistView() {
+        location.href = "./playlistView.html"
+    }
+
+    function logout() {
+        var session_id = ""
+        var session_username = ""
+
+        sessionStorage.setItem("session_id", session_id)
+        sessionStorage.setItem("session_username", session_username)
+
+        swal("¡Sección cerrada!", "Gracias por utilizar Midnight", "success")
+            .then((value) => {
+                location.href = "../homeView.html"
+            });
+
+    }
+
+    init();
+</script>
+
+</html>
