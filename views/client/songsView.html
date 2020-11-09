@@ -153,7 +153,7 @@
                                             </a>
                                         </div>
                                         <div class="extra content">
-                                            <a onclick="">
+                                            <a onclick="add_playlist(${res[i][j].id})">
                                                 <i class="music icon"></i> Agregar a mi playlist
                                             </a>
                                         </div>
@@ -183,6 +183,80 @@
         var id_song = id
         sessionStorage.setItem("id_song_show", id_song)
         location.href = "./songShowView.html"
+    }
+
+    function add_playlist(id) {
+        var id_user = sessionStorage.session_id
+        console.log(id_user)
+
+        id_song = id
+        console.log(id_song)
+
+        fetch(`http://localhost:3000/song_exists_playlist/${id_song}`, {
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
+            .then(response => response.json())
+            .catch(error => {
+                console.log(error)
+            })
+            .then(res => {
+                console.log(res)
+                for (var i in res) {
+
+                    state = res[i]
+                    console.log("Id de canción: " + id_song)
+                    console.log("Estado: " + state)
+
+                    if (state == 1) {
+                        swal("¡Ocurrio un error!", "¡La canción ya existe en la playlist!", "error");
+                    } else if (state == 0) {
+
+                        fetch(`http://localhost:3000/playlists/${id_user}`, {
+                                headers: {
+                                    'Content-Type': 'application/json'
+                                }
+                            })
+                            .then(response => response.json())
+                            .catch(error => {
+                                console.log(error)
+                            })
+                            .then(res => {
+                                console.log(res)
+                                for (var i in res) {
+
+                                    if (id_user == res[i].id) {
+                                        var data = {
+                                            'id_playlist': parseInt(id_user, 10),
+                                            'id_song': parseInt(id_song, 10)
+                                        }
+
+                                        console.log(data);
+                                        fetch('http://localhost:3000/playlist_song', {
+                                                method: 'POST',
+                                                body: JSON.stringify(data),
+                                                headers: {
+                                                    'Content-Type': 'application/json'
+                                                }
+
+                                            }).then(res => res.json())
+                                            .catch(error => {
+                                                console.error('Error:', error)
+                                                    //alert("Ocurrio un error al consumir la API, revise la consola")
+                                                swal("¡Ocurrio un error!", "¡No se pudo agregar la canción a mi playlist!", "error");
+                                            })
+                                            .then(response => {
+                                                console.log('Success:', response);
+                                                //alert(response.message)
+                                                swal("¡Creado con éxito!", "¡Canción agregada a mi playlist!", "success");
+                                            })
+                                    }
+                                }
+                            })
+                    }
+                }
+            })
     }
 
     function profile() {
