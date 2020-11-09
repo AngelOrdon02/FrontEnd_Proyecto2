@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+    <title>Solicitar canción - Usuario</title>
+
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
+
+    <!-- Icono -->
+    <link rel="icon" type="image/x-icon" href="https://3.bp.blogspot.com/-2kXGuGA1ON0/Wv3plRrEPjI/AAAAAAAAAOE/5dJCBrXXLR01bFtoTyBZ1btCcMLBX33rQCLcBGAs/s320/Logo%2BWOS%2Bcol%2B%25281%2529.png">
+
+    <link rel="stylesheet" href="../../css/style.css">
+    <link rel="stylesheet" href="../../css/home.css">
+
+    <script type="text/javascript" src="../../scripts/script.js"></script>
+    <!-- Alertas -->
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+</head>
+
+<body>
+
+    <!-- Following Menu -->
+    <div class="ui large top fixed hidden menu">
+        <div class="ui container">
+            <a class="active item">Home</a>
+            <a class="item">Work</a>
+            <a class="item">Company</a>
+            <a class="item">Careers</a>
+            <div class="right menu">
+                <div class="item">
+                    <a class="ui button">Log in</a>
+                </div>
+                <div class="item">
+                    <a class="ui primary button">Sign Up</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Sidebar Menu -->
+    <div class="ui vertical inverted sidebar menu">
+        <a class="active item">Home</a>
+        <a class="item">Work</a>
+        <a class="item">Company</a>
+        <a class="item">Careers</a>
+        <a class="item">Login</a>
+        <a class="item">Signup</a>
+    </div>
+
+
+    <!-- Page Contents -->
+    <div class="pusher">
+        <!-- <div class="ui inverted vertical masthead center aligned segment"> -->
+        <div class="ui inverted vertical center aligned segment">
+
+            <div class="ui container">
+                <div class="ui large secondary inverted pointing menu">
+                    <a class="toc item">
+                        <i class="sidebar icon"></i>
+                    </a>
+                    <a class="item" onclick="goPrincipalView()">Principal</a>
+                    <a class="item" onclick="goPlaylistView()">Mi playlist</a>
+                    <a class="active item" onclick="goRequestSongView()">Solicitar canción</a>
+                    <label class="right item"></label>
+                    <label class="right item"></label>
+                    <label class="right item"></label>
+                    <label class="right item"></label>
+                    <div id="username_label">
+                        <!-- <label class="right item">Nombre del usuario</label> -->
+                    </div>
+                    <div class="right item">
+                        <!-- <a class="ui inverted button">Log in</a> -->
+                        <a class="ui inverted button" onclick="logout()">Cerrar sesión</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="ui text container">
+                <h1 class="ui inverted header">
+                    Solicitar canción
+                </h1>
+                <!-- <h2>Do whatever you want when you want to.</h2> -->
+            </div>
+
+        </div>
+
+        <div class="ui vertical stripe">
+            <div class="ui middle aligned stackable grid container">
+                <div class="row">
+                    <div class="four wide column"></div>
+                    <div class="eight wide column">
+                        <h3>Datos de la canción:</h3>
+                        <form class="ui form">
+                            <div class="field">
+                                <label>Nombre</label>
+                                <input type="text" id="name" name="name" placeholder="Nombre">
+                            </div>
+                            <div class="field">
+                                <label>Artista</label>
+                                <input type="text" id="artist" name="last-name" placeholder="Artista">
+                            </div>
+                            <div class="field">
+                                <label>Álbum</label>
+                                <input type="text" id="album" name="last-name" placeholder="Álbum">
+                            </div>
+                            <div class="field">
+                                <label>Fecha</label>
+                                <input type="text" id="date" name="last-name" placeholder="Fecha">
+                            </div>
+                            <div class="field">
+                                <label>Imagen</label>
+                                <textarea rows="2" id="image" placeholder="Link de imagen"></textarea>
+                            </div>
+                            <div class="field">
+                                <label>Link spotify</label>
+                                <textarea rows="2" id="link_spotify" placeholder="Link de spotify"></textarea>
+                            </div>
+                            <div class="field">
+                                <label>Link youtube</label>
+                                <textarea rows="2" id="link_youtube" placeholder="Link de youtube"></textarea>
+                            </div>
+                            <div class="position_right">
+                                <button class="large ui green button" type="button" onclick="save()">Solicitar</button>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="four wide column"></div>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="ui inverted vertical footer segment">
+            <div class="ui container">
+                <div class="ui stackable inverted divided equal height stackable grid">
+                    <div class="three wide column">
+                        <h4 class="ui inverted header">USAC</h4>
+                    </div>
+                    <div class="three wide column">
+                        <h4 class="ui inverted header">IPC 1 "D"</h4>
+                    </div>
+                    <div class="seven wide column">
+                        <h4 class="ui inverted header">Proyecto 2</h4>
+                        <p>Angel Geovanny Ordon Colchaj - 201905741</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</body>
+<script>
+    function init() {
+        // Para el nombre de usuario
+        var session_username = sessionStorage.session_username
+            //console.log(session_username)
+        var contenidoUsername = document.querySelector('#username_label')
+        contenidoUsername.innerHTML = ""
+
+        contenidoUsername.innerHTML =
+            `
+                <a class="right item" onclick="profile()">${session_username}</a>
+            `
+    }
+
+    function save() {
+
+        var name = document.querySelector('#name').value
+        var artist = document.querySelector('#artist').value
+        var album = document.querySelector('#album').value
+        var date = document.querySelector('#date').value
+        var image = document.querySelector('#image').value
+        var link_spotify = document.querySelector('#link_spotify').value
+        var link_youtube = document.querySelector('#link_youtube').value
+
+        // state = 2, porque espera aprobacion del admin
+        var state = 2;
+
+        if ((name == "") || (artist == "") || (album == "") || (date == "") || (image == "") || (link_spotify == "") || (link_youtube == "")) {
+            swal("¡Ocurrio un error!", "¡No deje ni una casilla vacía, por favor!", "error");
+        } else if ((name != "") && (artist != "") && (album != "") && (date != "") && (image != "") && (link_spotify != "") && (link_youtube != "")) {
+
+            var data = {
+                'name': name,
+                'artist': artist,
+                'album': album,
+                'date': date,
+                'image': image,
+                'link_spotify': link_spotify,
+                'link_youtube': link_youtube,
+                'state': state
+            }
+
+            console.log(data);
+            fetch('http://localhost:3000/songs', {
+                    method: 'POST',
+                    body: JSON.stringify(data),
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+
+                }).then(res => res.json())
+                .catch(error => {
+                    console.error('Error:', error)
+                        //alert("Ocurrio un error al consumir la API, revise la consola")
+                    swal("¡Ocurrio un error!", "¡No se hacer la solicitud!", "error");
+                })
+                .then(response => {
+                    console.log('Success:', response);
+                    //alert(response.message)
+                    //swal("¡Editado con éxito!", "¡Canción editada!", "success");
+                    swal("¡Solicitud enviada con éxito!", "Espere a su aprobación", "success")
+                        .then((value) => {
+                            location.href = "./request_songView.html"
+                        });
+                    //location.href = "./songsView.html"
+                })
+
+        }
+    }
+
+    function profile() {
+        location.href = "./profileClientView.html"
+    }
+
+    function goPrincipalView() {
+        location.href = "./songsView.html"
+    }
+
+    function goPlaylistView() {
+        location.href = "./playlistView.html"
+    }
+
+    function goRequestSongView() {
+        location.href = "./request_songView.html"
+    }
+
+    function logout() {
+        var session_id = ""
+        var session_username = ""
+
+        sessionStorage.setItem("session_id", session_id)
+        sessionStorage.setItem("session_username", session_username)
+
+        swal("¡Sección cerrada!", "Gracias por utilizar Midnight", "success")
+            .then((value) => {
+                location.href = "../homeView.html"
+            });
+
+    }
+
+    init();
+</script>
+
+</html>

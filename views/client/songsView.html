@@ -65,7 +65,7 @@
                     </a>
                     <a class="active item" onclick="goPrincipalView()">Principal</a>
                     <a class="item" onclick="goPlaylistView()">Mi playlist</a>
-                    <!-- <a class="item" onclick="goUsersView()">Usuarios</a> -->
+                    <a class="item" onclick="goRequestSongView()">Solicitar canción</a>
                     <label class="right item"></label>
                     <label class="right item"></label>
                     <label class="right item"></label>
@@ -269,6 +269,10 @@
 
     function goPlaylistView() {
         location.href = "./playlistView.html"
+    }
+
+    function goRequestSongView() {
+        location.href = "./request_songView.html"
     }
 
     function logout() {
