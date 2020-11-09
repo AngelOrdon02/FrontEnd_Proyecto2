@@ -196,11 +196,11 @@
                                                                             <i class="eye icon"></i> Ver detalles
                                                                         </a>
                                                                     </div>
-                                                                    <div class="extra content">
+                                                                    <!-- <div class="extra content">
                                                                         <a onclick="">
-                                                                            <i class="music icon"></i> Agregar a mi playlist
+                                                                            <i class="music icon"></i> Quitar de mi playlist
                                                                         </a>
-                                                                    </div>
+                                                                    </div> -->
                                                                 </div>
                                                             </div>
                                                             `
@@ -213,46 +213,6 @@
                     }
                 }
             })
-
-
-        // fetch('http://localhost:3000/songs')
-        //     .then(response => response.json())
-        //     .catch(error => {
-        //         console.log(error)
-        //     })
-        //     .then(res => {
-        //         //Recorriendo nuestro res e incrementando el innerHTML de nuestro elemento
-        //         //Identificado como contenido
-        //         console.log(res)
-        //         for (var i in res) {
-        //             for (var j in res[i]) {
-        //                 if (res[i][j].state == 1) {
-        //                     // console.log(res[i][j])
-        //                     // console.log(res[i])
-        //                     contenido.innerHTML +=
-        //                         `
-        //                         <div class="four wide column">
-        //                             <div class="ui card">
-        //                                 <div class="image">
-        //                                     <iframe src="${res[i][j].link_spotify}" width="100%" height="300" style="border:none;" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
-        //                                 </div>
-        //                                 <div class="extra content">
-        //                                     <a onclick="show_song(${res[i][j].id})">
-        //                                         <i class="eye icon"></i> Ver detalles
-        //                                     </a>
-        //                                 </div>
-        //                                 <div class="extra content">
-        //                                     <a onclick="">
-        //                                         <i class="music icon"></i> Agregar a mi playlist
-        //                                     </a>
-        //                                 </div>
-        //                             </div>
-        //                         </div>
-        //                         `
-        //                 }
-        //             }
-        //         }
-        //     })
 
         // Para el nombre de usuario
         var session_username = sessionStorage.session_username

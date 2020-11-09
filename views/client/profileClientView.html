@@ -67,6 +67,7 @@
                         <i class="sidebar icon"></i>
                     </a>
                     <a class="item" onclick="goPrincipalView()">Principal</a>
+                    <a class="item" onclick="goPlaylistView()">Mi playlist</a>
                     <!-- <a class="item" onclick="goRequestsView()">Solicitudes</a>
                     <a class="item" onclick="goUsersView()">Usuarios</a> -->
                     <label class="right item"></label>
@@ -345,13 +346,9 @@
         location.href = "./songsView.html"
     }
 
-    // function goRequestsView() {
-    //     location.href = "./request_songsView.html"
-    // }
-
-    // function goUsersView() {
-    //     location.href = "./usersView.html"
-    // }
+    function goPlaylistView() {
+        location.href = "./playlistView.html"
+    }
 
     function logout() {
         var session_id = ""
