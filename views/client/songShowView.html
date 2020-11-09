@@ -72,7 +72,7 @@
                     </div>
                     <div class="right item">
                         <!-- <a class="ui inverted button">Log in</a> -->
-                        <a class="ui inverted button">Cerrar sesión</a>
+                        <a class="ui inverted button" onclick="logout()">Cerrar sesión</a>
                     </div>
                 </div>
             </div>
@@ -333,6 +333,20 @@
 
     function goPrincipalView() {
         location.href = "./songsView.html"
+    }
+
+    function logout() {
+        var session_id = ""
+        var session_username = ""
+
+        sessionStorage.setItem("session_id", session_id)
+        sessionStorage.setItem("session_username", session_username)
+
+        swal("¡Sección cerrada!", "Gracias por utilizar Midnight", "success")
+            .then((value) => {
+                location.href = "../homeView.html"
+            });
+
     }
 
     init();
