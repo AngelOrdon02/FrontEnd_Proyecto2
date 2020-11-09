@@ -161,7 +161,7 @@
         var id_user = sessionStorage.id_user_edit
         console.log(id_user)
 
-        fetch(`http://localhost:3000/users/${id_user}`, {
+        fetch(`https://midnigthbackend201905741.herokuapp.com/users/${id_user}`, {
                 headers: {
                     'Content-Type': 'application/json'
                 }
@@ -217,7 +217,7 @@
         }
 
         console.log(data);
-        fetch(`http://localhost:3000/users/${id_user}`, {
+        fetch(`https://midnigthbackend201905741.herokuapp.com/users/${id_user}`, {
                 method: 'PUT',
                 body: JSON.stringify(data),
                 headers: {

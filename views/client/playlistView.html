@@ -130,7 +130,7 @@
         var contenido = document.querySelector('#Cuerpo')
         contenido.innerHTML = ""
 
-        fetch(`http://localhost:3000/playlists/${id_user}`, {
+        fetch(`https://midnigthbackend201905741.herokuapp.com/playlists/${id_user}`, {
                 headers: {
                     'Content-Type': 'application/json'
                 }
@@ -152,7 +152,7 @@
 
                     if (id_user == res[i].id) {
                         id_playlist = res[i].id
-                        fetch(`http://localhost:3000/playlist_song_id_playlist/${id_playlist}`, {
+                        fetch(`https://midnigthbackend201905741.herokuapp.com/playlist_song_id_playlist/${id_playlist}`, {
                                 headers: {
                                     'Content-Type': 'application/json'
                                 }
@@ -168,7 +168,7 @@
                                         console.log(res[i][j].id_song)
 
                                         id_song = res[i][j].id_song
-                                        fetch(`http://localhost:3000/songs/${id_song}`, {
+                                        fetch(`https://midnigthbackend201905741.herokuapp.com/songs/${id_song}`, {
                                                 headers: {
                                                     'Content-Type': 'application/json'
                                                 }

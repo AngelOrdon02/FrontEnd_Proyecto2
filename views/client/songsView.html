@@ -126,7 +126,7 @@
     function init() {
         var contenido = document.querySelector('#Cuerpo')
         contenido.innerHTML = ""
-        fetch('http://localhost:3000/songs')
+        fetch('https://midnigthbackend201905741.herokuapp.com/songs')
             .then(response => response.json())
             .catch(error => {
                 console.log(error)
@@ -192,7 +192,7 @@
         id_song = id
         console.log(id_song)
 
-        fetch(`http://localhost:3000/song_exists_playlist/${id_song}`, {
+        fetch(`https://midnigthbackend201905741.herokuapp.com/song_exists_playlist/${id_song}`, {
                 headers: {
                     'Content-Type': 'application/json'
                 }
@@ -213,7 +213,7 @@
                         swal("¡Ocurrio un error!", "¡La canción ya existe en la playlist!", "error");
                     } else if (state == 0) {
 
-                        fetch(`http://localhost:3000/playlists/${id_user}`, {
+                        fetch(`https://midnigthbackend201905741.herokuapp.com/playlists/${id_user}`, {
                                 headers: {
                                     'Content-Type': 'application/json'
                                 }
@@ -233,7 +233,7 @@
                                         }
 
                                         console.log(data);
-                                        fetch('http://localhost:3000/playlist_song', {
+                                        fetch('https://midnigthbackend201905741.herokuapp.com/playlist_song', {
                                                 method: 'POST',
                                                 body: JSON.stringify(data),
                                                 headers: {

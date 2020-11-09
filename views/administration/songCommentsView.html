@@ -150,7 +150,7 @@
 
         var datosCancion = document.querySelector('#DatosCancion')
         datosCancion.innerHTML = ""
-        fetch(`http://localhost:3000/songs/${id_song}`, {
+        fetch(`https://midnigthbackend201905741.herokuapp.com/songs/${id_song}`, {
                 headers: {
                     'Content-Type': 'application/json'
                 }
@@ -193,7 +193,7 @@
 
         var contenido = document.querySelector('#CuerpoTabla')
         contenido.innerHTML = ""
-        fetch(`http://localhost:3000/comments_song/${id_song}`, {
+        fetch(`https://midnigthbackend201905741.herokuapp.com/comments_song/${id_song}`, {
                 headers: {
                     'Content-Type': 'application/json'
                 }

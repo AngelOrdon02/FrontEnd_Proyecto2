@@ -165,7 +165,7 @@
         var id_user = sessionStorage.session_id
         console.log(id_user)
 
-        fetch(`http://localhost:3000/users/${id_user}`, {
+        fetch(`https://midnigthbackend201905741.herokuapp.com/users/${id_user}`, {
                 headers: {
                     'Content-Type': 'application/json'
                 }
@@ -230,7 +230,7 @@
                 }
 
                 console.log(data);
-                fetch(`http://localhost:3000/users/${id_user}`, {
+                fetch(`https://midnigthbackend201905741.herokuapp.com/users/${id_user}`, {
                         method: 'PUT',
                         body: JSON.stringify(data),
                         headers: {
@@ -263,7 +263,7 @@
 
         } else if (session_username != username) {
 
-            fetch(`http://localhost:3000/user_exists/${username}`, {
+            fetch(`https://midnigthbackend201905741.herokuapp.com/user_exists/${username}`, {
                     headers: {
                         'Content-Type': 'application/json'
                     }
@@ -298,7 +298,7 @@
                                 }
 
                                 console.log(data);
-                                fetch(`http://localhost:3000/users/${id_user}`, {
+                                fetch(`https://midnigthbackend201905741.herokuapp.com/users/${id_user}`, {
                                         method: 'PUT',
                                         body: JSON.stringify(data),
                                         headers: {

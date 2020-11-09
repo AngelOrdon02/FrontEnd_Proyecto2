@@ -172,7 +172,7 @@
         var contenido = document.querySelector('#Cuerpo')
         contenido.innerHTML = ""
 
-        fetch(`http://localhost:3000/songs/${id_song}`, {
+        fetch(`https://midnigthbackend201905741.herokuapp.com/songs/${id_song}`, {
                 headers: {
                     'Content-Type': 'application/json'
                 }
@@ -236,7 +236,7 @@
 
         var contenido = document.querySelector('#CuerpoTabla')
         contenido.innerHTML = ""
-        fetch(`http://localhost:3000/comments_song/${id_song}`, {
+        fetch(`https://midnigthbackend201905741.herokuapp.com/comments_song/${id_song}`, {
                 headers: {
                     'Content-Type': 'application/json'
                 }
@@ -289,7 +289,7 @@
             }
 
             console.log(data);
-            fetch('http://localhost:3000/comments', {
+            fetch('https://midnigthbackend201905741.herokuapp.com/comments', {
                     method: 'POST',
                     body: JSON.stringify(data),
                     headers: {

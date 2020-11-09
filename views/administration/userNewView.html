@@ -180,7 +180,7 @@
         // user_type = 1 => Usuario administrador
         var user_type = 1;
 
-        fetch(`http://localhost:3000/user_exists/${username}`, {
+        fetch(`https://midnigthbackend201905741.herokuapp.com/user_exists/${username}`, {
                 headers: {
                     'Content-Type': 'application/json'
                 }
@@ -214,7 +214,7 @@
                             }
 
                             console.log(data);
-                            fetch('http://localhost:3000/users', {
+                            fetch('https://midnigthbackend201905741.herokuapp.com/users', {
                                     method: 'POST',
                                     body: JSON.stringify(data),
                                     headers: {

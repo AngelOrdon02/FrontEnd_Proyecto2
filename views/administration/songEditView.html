@@ -173,7 +173,7 @@
         var id_song = sessionStorage.id_song_edit
         console.log(id_song)
 
-        fetch(`http://localhost:3000/songs/${id_song}`, {
+        fetch(`https://midnigthbackend201905741.herokuapp.com/songs/${id_song}`, {
                 headers: {
                     'Content-Type': 'application/json'
                 }
@@ -250,7 +250,7 @@
         }
 
         console.log(data);
-        fetch(`http://localhost:3000/songs/${id_song}`, {
+        fetch(`https://midnigthbackend201905741.herokuapp.com/songs/${id_song}`, {
                 method: 'PUT',
                 body: JSON.stringify(data),
                 headers: {

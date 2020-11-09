@@ -169,7 +169,7 @@
     function init() {
         var contenido = document.querySelector('#CuerpoTabla')
         contenido.innerHTML = ""
-        fetch('http://localhost:3000/users')
+        fetch('https://midnigthbackend201905741.herokuapp.com/users')
             .then(response => response.json())
             .catch(error => {
                 console.log(error)
@@ -240,7 +240,7 @@
                 if (willDelete) {
                     swal("¡Eliminado con éxito!", "Usuario eliminado", "success")
                         .then((value) => {
-                            fetch(`http://localhost:3000/users/${id}`, {
+                            fetch(`https://midnigthbackend201905741.herokuapp.com/users/${id}`, {
                                     method: 'DELETE'
                                 }).then(res => res.json())
                                 .catch(error => console.error('Error:', error))
@@ -270,7 +270,7 @@
         var columns = ["No.", "Nombre de usuario", "Nombre", "Apellido", "Tipo de usuario"];
         var data = [];
 
-        fetch('http://localhost:3000/users')
+        fetch('https://midnigthbackend201905741.herokuapp.com/users')
             .then(response => response.json())
             .catch(error => {
                 console.log(error)

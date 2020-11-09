@@ -56,7 +56,7 @@
         } else if (username != "") {
             console.log("username con datos: " + username);
 
-            fetch(`http://localhost:3000/user_exists/${username}`, {
+            fetch(`https://midnigthbackend201905741.herokuapp.com/user_exists/${username}`, {
                     headers: {
                         'Content-Type': 'application/json'
                     }
@@ -77,7 +77,7 @@
                             swal("¡Ocurrio un error!", "¡El nombre de usuario no existe, utilice otro por favor!", "error");
                         } else if (state == 1) {
 
-                            fetch(`http://localhost:3000/users_recover/${username}`, {
+                            fetch(`https://midnigthbackend201905741.herokuapp.com/users_recover/${username}`, {
                                     headers: {
                                         'Content-Type': 'application/json'
                                     }
